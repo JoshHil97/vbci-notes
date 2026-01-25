@@ -2,23 +2,423 @@
 @tailwind components;
 @tailwind utilities;
 
+/* =========================================================
+   VBCI NOTES THEME
+   Dark purple mid-tone gradient
+   Neon glow accents
+   Smooth readable typography
+========================================================= */
+
 :root {
-  color-scheme: light;
+  --bg-0: #070513;
+  --bg-1: #0b0620;
+  --bg-2: #14083a;
+
+  --card: rgba(18, 8, 46, 0.55);
+  --card-2: rgba(10, 6, 28, 0.45);
+  --card-border: rgba(180, 110, 255, 0.18);
+
+  --text: rgba(245, 240, 255, 0.92);
+  --muted: rgba(245, 240, 255, 0.7);
+
+  --neon: #b46eff;
+  --neon-2: #6ee7ff;
+
+  --shadow: rgba(0, 0, 0, 0.45);
+}
+
+/* =========================================================
+   GLOBAL RESET
+========================================================= */
+
+* {
+  box-sizing: border-box;
 }
 
 html,
 body {
-  height: 100%;
+  padding: 0;
+  margin: 0;
 }
 
 body {
+  min-height: 100vh;
+  color: var(--text);
   background:
-    radial-gradient(900px 600px at 15% 10%, rgba(124, 58, 237, 0.16), transparent 60%),
-    radial-gradient(900px 600px at 85% 20%, rgba(6, 182, 212, 0.14), transparent 60%),
-    radial-gradient(900px 700px at 50% 95%, rgba(245, 158, 11, 0.10), transparent 60%),
-    #ffffff;
+    radial-gradient(
+      1200px 600px at 70% -10%,
+      rgba(180, 110, 255, 0.25),
+      transparent 60%
+    ),
+    linear-gradient(135deg, var(--bg-2), var(--bg-0));
+  font-family: var(--font-serif), ui-serif, Georgia, serif;
+  line-height: 1.65;
 }
 
-::selection {
-  background: rgba(124, 58, 237, 0.22);
+/* =========================================================
+   LAYOUT CONSTRAINTS (THIS FIXES YOUR ISSUE)
+========================================================= */
+
+.vbci-page {
+  padding: 26px 0 64px;
+}
+
+.vbci-container {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 22px;
+}
+
+/* =========================================================
+   NAVBAR
+========================================================= */
+
+.vbci-topbar {
+  padding: 18px 0;
+}
+
+.vbci-topbar-inner {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 22px;
+
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.vbci-brand {
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+}
+
+.vbci-subtitle {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+/* =========================================================
+   NAV PILLS
+========================================================= */
+
+.vbci-nav {
+  display: flex;
+  gap: 10px;
+}
+
+.vbci-pill {
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  color: var(--text);
+  text-decoration: none;
+
+  background: linear-gradient(
+    135deg,
+    rgba(180, 110, 255, 0.18),
+    rgba(110, 231, 255, 0.12)
+  );
+
+  border: 1px solid rgba(180, 110, 255, 0.25);
+
+  box-shadow:
+    0 0 0 transparent,
+    inset 0 0 0 transparent;
+
+  transition: all 0.25s ease;
+}
+
+.vbci-pill:hover {
+  box-shadow:
+    0 0 18px rgba(180, 110, 255, 0.45),
+    inset 0 0 12px rgba(110, 231, 255, 0.25);
+}
+
+/* =========================================================
+   HERO / SECTIONS
+========================================================= */
+
+.vbci-section {
+  margin-bottom: 42px;
+}
+
+.vbci-h1 {
+  font-size: 2.6rem;
+  line-height: 1.2;
+  margin-bottom: 14px;
+}
+
+.vbci-h2 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.vbci-p {
+  color: var(--muted);
+  max-width: 760px;
+}
+
+/* =========================================================
+   CARDS
+========================================================= */
+
+.vbci-card {
+  background: linear-gradient(
+    145deg,
+    var(--card),
+    var(--card-2)
+  );
+
+  border: 1px solid var(--card-border);
+  border-radius: 18px;
+
+  padding: 22px;
+
+  box-shadow:
+    0 20px 40px var(--shadow),
+    inset 0 0 0 rgba(255, 255, 255, 0.02);
+}
+
+.vbci-card + .vbci-card {
+  margin-top: 18px;
+}
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+.vbci-button {
+  display: inline-block;
+  padding: 8px 18px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  color: var(--text);
+  text-decoration: none;
+
+  background: linear-gradient(
+    135deg,
+    rgba(180, 110, 255, 0.35),
+    rgba(110, 231, 255, 0.25)
+  );
+
+  border: 1px solid rgba(180, 110, 255, 0.45);
+
+  box-shadow:
+    0 0 0 transparent,
+    inset 0 0 0 transparent;
+
+  transition: all 0.25s ease;
+}
+
+.vbci-button:hover {
+  box-shadow:
+    0 0 22px rgba(180, 110, 255, 0.55),
+    inset 0 0 14px rgba(110, 231, 255, 0.35);
+}
+
+/* =========================================================
+   SMALL TEXT
+========================================================= */
+
+.vbci-muted {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+/* =========================================================
+   DIVIDERS
+========================================================= */
+
+.vbci-divider {
+  height: 1px;
+  margin: 28px 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(180, 110, 255, 0.35),
+    transparent
+  );
+}
+
+.vbci-input {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.14);
+  background: rgba(10,10,20,0.35);
+  color: rgba(255,255,255,0.92);
+  outline: none;
+}
+
+.vbci-textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.14);
+  background: rgba(10,10,20,0.35);
+  color: rgba(255,255,255,0.92);
+  outline: none;
+  resize: vertical;
+}
+
+.vbci-button {
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.18);
+  background: rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.92);
+  cursor: pointer;
+}
+
+.vbci-prose {
+  line-height: 1.8;
+}
+
+.vbci-prose h1,
+.vbci-prose h2,
+.vbci-prose h3 {
+  margin: 18px 0 10px;
+}
+
+.vbci-prose p {
+  margin: 12px 0;
+}
+
+.vbci-prose ul,
+.vbci-prose ol {
+  margin: 12px 0 12px 22px;
+}
+
+.vbci-prose li {
+  margin: 6px 0;
+}
+
+.vbci-prose blockquote {
+  margin: 14px 0;
+  padding-left: 14px;
+  border-left: 3px solid rgba(255,255,255,0.18);
+  opacity: 0.95;
+}
+
+.vbci-prose code {
+  padding: 2px 6px;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.08);
+}
+
+.vbci-prose pre code {
+  display: block;
+  padding: 14px;
+  overflow: auto;
+}
+
+.vbci-nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(8, 8, 20, 0.55);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.vbci-nav-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.vbci-brand {
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  color: rgba(255,255,255,0.92);
+}
+
+.vbci-nav-links {
+  display: flex;
+  gap: 10px;
+}
+
+.vbci-pill {
+  display: inline-block;
+  padding: 8px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(255,255,255,0.06);
+  color: rgba(255,255,255,0.92);
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.vbci-pill:hover {
+  background: rgba(255,255,255,0.10);
+  border-color: rgba(255,255,255,0.16);
+}
+
+.vbci-pagination {
+  display: flex;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.vbci-button-disabled {
+  pointer-events: none;
+  opacity: 0.45;
+}
+
+.vbci-card-meta {
+  margin-top: 8px;
+  opacity: 0.85;
+}
+
+.vbci-card-summary {
+  margin-top: 10px;
+  opacity: 0.92;
+  line-height: 1.55;
+}
+
+.vbci-card-summary-muted {
+  opacity: 0.6;
+}
+
+.vbci-admin-link {
+  margin-top: 18px;
+}
+
+.vbci-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 26px 18px;
+}
+
+.vbci-form {
+  display: grid;
+  gap: 10px;
+  max-width: 420px;
+}
+
+.vbci-editor {
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(0,0,0,0.18);
+  border-radius: 14px;
+  padding: 14px;
+  min-height: 260px;
+}
+
+.vbci-editor .ProseMirror {
+  outline: none;
+  min-height: 220px;
+}
+
+.vbci-editor .ProseMirror p {
+  line-height: 1.7;
+}
+
+.vbci-editor a {
+  text-decoration: underline;
 }

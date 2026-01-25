@@ -1,23 +1,18 @@
-import "./globals.css"
-import type { Metadata } from "next"
+import "./globals.css";
+import Navbar from "./components/Navbar";
 
-export const metadata: Metadata = {
+export const metadata = {
   title: "VBCI Notes",
-  description: "Weekly sermon notes from Victory Bible Church International",
-}
+  description: "Weekly sermon notes, clearly preserved",
+};
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className="bg-white text-neutral-900 antialiased">
-        <div className="mx-auto max-w-5xl px-6">
-          {children}
-        </div>
+      <body>
+        <Navbar />
+        {children}
       </body>
     </html>
-  )
+  );
 }
