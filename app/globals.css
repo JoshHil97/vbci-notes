@@ -321,3 +321,33 @@ body {
   z-index: 2;
 }
 
+
+/* Full page scripture collage background spread evenly across the page */
+.scripture-collage {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.scripture-collage-item {
+  position: absolute;
+  max-width: 360px;
+  line-height: 1.25;
+  letter-spacing: 0.1px;
+  white-space: normal;
+  font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.35);
+  filter: blur(0.15px);
+}
+
+.scripture-collage-item .ref {
+  font-weight: 700;
+}
+
+/* Make sure your content always sits above the collage */
+.paper-page > main {
+  position: relative;
+  z-index: 2;
+}
+
