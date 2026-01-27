@@ -1,28 +1,36 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import { supabaseClient } from '../../lib/supabase-client'
+import { useState } from "react";
+import { supabaseClient } from "@/app/lib/supabase-client";
 
 export default function ResetPasswordPage() {
-  const [password, setPassword] = useState('')
-  const [status, setStatus] = useState('')
+  const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
 
-  async function submit(e) {
-    e.preventDefault()
+  async function handleReset() {
+    const { error } = await supabaseClient.auth.updateUser({
+      password,
+    });
 
-    const { error } = await supabaseClient.auth.updateUser({ password })
-    setStatus(error ? error.message : 'Password updated')
+    if (error) {
+      setMessage(error.message);
+    } else {
+      setMessage("Password updated successfully");
+    }
   }
 
   return (
-    <form onSubmit={submit}>
+    <div style={{ maxWidth: 420, margin: "80px auto" }}>
+      <h1>Reset Password</h1>
       <input
         type="password"
         value={password}
-        onChange={e => setPassword(e.target.value)}
+        onChange={(e) => setPassword(e.target.value)}
+        placeholder="New password"
+        style={{ width: "100%", marginBottom: 12 }}
       />
-      <button type="submit">Update password</button>
-      <p>{status}</p>
-    </form>
-  )
+      <button onClick={handleReset}>Update password</button>
+      {message && <p>{message}</p>}
+    </div>
+  );
 }

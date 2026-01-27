@@ -2,8 +2,8 @@ import "./globals.css";
 import Navbar from "./components/Navbar";
 
 export const metadata = {
-  title: "VBCI Notes",
-  description: "Weekly sermon notes, clearly preserved",
+  title: "Oil for the Journey",
+  description: "Scripture, reflection, and teaching for the journey of faith",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
