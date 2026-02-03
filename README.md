@@ -1,58 +1,75 @@
 Oil for the Journey 📖
 
-Oil for the Journey is a small teaching notes site with a calm reading experience, an old paper aesthetic, and an admin editor for publishing weekly notes.
+Oil for the Journey is a reflective writing platform built to document faith based thoughts, teachings, and weekly notes in a calm, readable environment.
 
-What it does ✍️
-1. Public Weekly Notes page that lists published notes
-2. Individual note pages rendered from rich text content
-3. Admin area to create, edit, delete, and manage drafts
-4. Drafts stay hidden from the public until they are published
-5. Smooth, calm loading states and an aged paper style across pages
+The project combines a reverent visual style with a modern web stack, allowing content to be written privately, saved as drafts, and published intentionally.
 
-Tech stack ⚙️
-1. Next.js (App Router) and React
-2. TypeScript
-3. Supabase (Auth and Postgres)
-4. TipTap editor for note content
-5. Tailwind CSS for styling
+This is not a social platform.
+It is a place for reflection, growth, and continuity.
 
-Run locally
-1. Install dependencies
+Purpose ✍️
+This project exists to
+
+• Capture spiritual reflections and teachings  
+• Publish long form notes in a readable, distraction free format  
+• Support private drafting and controlled publishing  
+• Create a digital journal that grows over time  
+
+Features 🔐
+• Public notes and weekly reflections  
+• Admin only access for writing, editing, and deleting  
+• Draft and published content separation  
+• Supabase powered authentication and database storage  
+• Responsive layout optimised for reading  
+• Calm old paper styling and Bible themed loading states  
+
+Tech Stack ⚙️
+• Next.js App Router  
+• TypeScript  
+• Supabase Auth and Database  
+• Tailwind CSS  
+• Vercel hosting  
+
+Content Structure
+• Home page for orientation and navigation  
+• Notes index for browsing published notes  
+• Individual note pages for reading and sharing  
+• Admin area for drafting, editing, and publishing  
+
+Environment Variables
+The following variables are used by this project
+
+• NEXT_PUBLIC_SUPABASE_URL  
+• NEXT_PUBLIC_SUPABASE_ANON_KEY  
+• SUPABASE_SERVICE_ROLE_KEY  
+
+These should be set locally in `.env.local` and in Vercel project settings for production.
+
+Running Locally 🚀
+Install dependencies
 ```bash
 npm install
 ```
 
-2. Add environment variables in `.env.local`
-```bash
-NEXT_PUBLIC_SUPABASE_URL="https://yourprojectref.supabase.co"
-NEXT_PUBLIC_SUPABASE_ANON_KEY="youranonkey"
-```
-
-3. Start the dev server
+Start the development server
 ```bash
 npm run dev
 ```
 
-4. Open the site
-Visit `http://localhost:3000`
-
-Admin access 🔐
-1. Visit `/admin`
-2. If you are signed out, you will be redirected to `/login`
-3. After signing in, you can create and manage notes
-
-Admin workflow
-1. Create a new note at `/admin/new`
-2. Use Save Draft to keep it private
-3. Use Publish to make it visible on the public Notes pages
-4. Edit an existing note at `/admin/edit/[slug]`
-5. Delete from the admin list (or the note page while logged in)
-
-Quality checks
+Build for production
 ```bash
-npm run lint
 npm run build
 ```
 
 Deployment
-This project deploys cleanly on Vercel. Set the same environment variables in your Vercel project settings.
+The project is deployed using Vercel.
+
+Production builds are triggered via the Vercel CLI or GitHub integration once environment variables are configured.
+
+Status
+This project is actively evolving. Features and content will continue to be refined over time.
+
+Author
+Joshua Hilarion
+
+Built as part of a long term journey combining faith, clarity, and software craftsmanship.
