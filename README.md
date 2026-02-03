@@ -1,36 +1,58 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+Oil for the Journey 📖
 
-## Getting Started
+Oil for the Journey is a small teaching notes site with a calm reading experience, an old paper aesthetic, and an admin editor for publishing weekly notes.
 
-First, run the development server:
+What it does ✍️
+1. Public Weekly Notes page that lists published notes
+2. Individual note pages rendered from rich text content
+3. Admin area to create, edit, delete, and manage drafts
+4. Drafts stay hidden from the public until they are published
+5. Smooth, calm loading states and an aged paper style across pages
 
+Tech stack ⚙️
+1. Next.js (App Router) and React
+2. TypeScript
+3. Supabase (Auth and Postgres)
+4. TipTap editor for note content
+5. Tailwind CSS for styling
+
+Run locally
+1. Install dependencies
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Add environment variables in `.env.local`
+```bash
+NEXT_PUBLIC_SUPABASE_URL="https://yourprojectref.supabase.co"
+NEXT_PUBLIC_SUPABASE_ANON_KEY="youranonkey"
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Start the dev server
+```bash
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. Open the site
+Visit `http://localhost:3000`
 
-## Learn More
+Admin access 🔐
+1. Visit `/admin`
+2. If you are signed out, you will be redirected to `/login`
+3. After signing in, you can create and manage notes
 
-To learn more about Next.js, take a look at the following resources:
+Admin workflow
+1. Create a new note at `/admin/new`
+2. Use Save Draft to keep it private
+3. Use Publish to make it visible on the public Notes pages
+4. Edit an existing note at `/admin/edit/[slug]`
+5. Delete from the admin list (or the note page while logged in)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Quality checks
+```bash
+npm run lint
+npm run build
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Deployment
+This project deploys cleanly on Vercel. Set the same environment variables in your Vercel project settings.
