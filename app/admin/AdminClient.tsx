@@ -5,26 +5,55 @@ import { useRouter } from "next/navigation";
 import slugify from "slugify";
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
+import type { JSONContent } from "@tiptap/core";
 import { supabaseBrowser } from "@/lib/supabase-client";
 
-export default function AdminClient() {
+type PostDraft = {
+  id: string;
+  title: string;
+  slug: string;
+  speaker: string | null;
+  preached_at: string | null;
+  summary: string | null;
+  youtube_url: string | null;
+  content_json: JSONContent | null;
+  published: boolean | null;
+};
+
+type Props = {
+  initialPost?: PostDraft | null;
+};
+
+export default function AdminClient({ initialPost }: Props) {
   const router = useRouter();
   const supabase = supabaseBrowser();
 
-  const [title, setTitle] = useState("");
-  const [speaker, setSpeaker] = useState("");
-  const [date, setDate] = useState("");
-  const [summary, setSummary] = useState("");
-  const [youtubeUrl, setYoutubeUrl] = useState("");
+  const isEditing = Boolean(initialPost?.id);
+
+  const initialDate = (() => {
+    if (!initialPost?.preached_at) return "";
+    const parsed = new Date(initialPost.preached_at);
+    if (Number.isNaN(parsed.getTime())) {
+      return initialPost.preached_at;
+    }
+    return parsed.toISOString().slice(0, 10);
+  })();
+
+  const [title, setTitle] = useState(initialPost?.title ?? "");
+  const [speaker, setSpeaker] = useState(initialPost?.speaker ?? "");
+  const [date, setDate] = useState(initialDate);
+  const [summary, setSummary] = useState(initialPost?.summary ?? "");
+  const [youtubeUrl, setYoutubeUrl] = useState(initialPost?.youtube_url ?? "");
   const [loading, setLoading] = useState(false);
+  const [statusMessage, setStatusMessage] = useState<string | null>(null);
 
   const editor = useEditor({
     extensions: [StarterKit],
-    content: "",
+    content: initialPost?.content_json ?? "",
     immediatelyRender: false,
   });
 
-  async function handleSubmit() {
+  async function handleSubmit(published: boolean) {
     if (!editor) return;
 
     const cleanTitle = title.trim();
@@ -33,11 +62,14 @@ export default function AdminClient() {
       return;
     }
 
-    const slug = slugify(cleanTitle, { lower: true, strict: true });
+    const slug = isEditing
+      ? initialPost?.slug ?? slugify(cleanTitle, { lower: true, strict: true })
+      : slugify(cleanTitle, { lower: true, strict: true });
 
+    setStatusMessage(null);
     setLoading(true);
 
-    const { error } = await supabase.from("posts").insert({
+    const payload = {
       title: cleanTitle,
       slug,
       speaker: speaker.trim() || null,
@@ -45,8 +77,12 @@ export default function AdminClient() {
       summary: summary.trim() || null,
       youtube_url: youtubeUrl.trim() || null,
       content_json: editor.getJSON(),
-      published: true,
-    });
+      published,
+    };
+
+    const { error } = isEditing
+      ? await supabase.from("posts").update(payload).eq("id", initialPost?.id)
+      : await supabase.from("posts").insert(payload);
 
     setLoading(false);
 
@@ -55,12 +91,26 @@ export default function AdminClient() {
       return;
     }
 
-    router.push("/notes");
+    setStatusMessage(published ? "Published successfully." : "Draft saved.");
+    router.push(published ? `/notes/${slug}` : "/admin");
   }
 
   return (
     <div style={{ maxWidth: 900, margin: "0 auto" }}>
-      <h1>Admin</h1>
+      <h1 style={{ marginBottom: 8 }}>
+        {isEditing ? "Edit Note" : "New Note"}
+      </h1>
+
+      {isEditing ? (
+        <p className="text-muted" style={{ marginBottom: 20 }}>
+          Editing <strong>{initialPost?.title}</strong> · Slug:{" "}
+          <span>{initialPost?.slug}</span>
+        </p>
+      ) : (
+        <p className="text-muted" style={{ marginBottom: 20 }}>
+          Create a new weekly note. Save as draft or publish when ready.
+        </p>
+      )}
 
       <label>Title</label>
       <input
@@ -101,9 +151,27 @@ export default function AdminClient() {
         <EditorContent editor={editor} />
       </div>
 
-      <button disabled={loading || !title.trim()} onClick={handleSubmit}>
-        {loading ? "Saving..." : "Create post"}
-      </button>
+      {statusMessage ? (
+        <p className="text-muted" style={{ marginBottom: 12 }}>
+          {statusMessage}
+        </p>
+      ) : null}
+
+      <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+        <button
+          disabled={loading || !title.trim()}
+          onClick={() => handleSubmit(false)}
+        >
+          {loading ? "Saving..." : "Save Draft"}
+        </button>
+
+        <button
+          disabled={loading || !title.trim()}
+          onClick={() => handleSubmit(true)}
+        >
+          {loading ? "Saving..." : isEditing ? "Publish Changes" : "Publish"}
+        </button>
+      </div>
     </div>
   );
 }

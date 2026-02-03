@@ -2,9 +2,10 @@
 
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
+import type { JSONContent } from "@tiptap/core";
 
 type Props = {
-  content: any;
+  content: JSONContent | null;
   youtubeUrl?: string | null;
 };
 
@@ -41,7 +42,7 @@ function toEmbedUrl(url: string) {
 export default function NoteClient({ content, youtubeUrl }: Props) {
   const editor = useEditor({
     extensions: [StarterKit],
-    content,
+    content: content ?? "",
     editable: false,
     immediatelyRender: false,
   });

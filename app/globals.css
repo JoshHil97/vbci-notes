@@ -10,9 +10,10 @@ Soft vignette and subtle texture
 */
 
 :root {
+  /* Warm parchment tones */
   --paper-0: #f6eedc;
   --paper-1: #efe2c8;
-  --paper-2: #e6d2aa;
+  --paper-2: #e2cfa6;
   --ink: #111111;
   --muted: rgba(17, 17, 17, 0.72);
 
@@ -25,7 +26,7 @@ Soft vignette and subtle texture
 
 /* Subtle noise as inline SVG data url */
 :root {
-  --paper-noise: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.22'/%3E%3C/svg%3E");
+  --paper-noise: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='.22'/%3E%3C/svg%3E");
 }
 
 html,
@@ -45,19 +46,26 @@ body {
   position: relative;
   min-height: 100vh;
 
-  /* The “inconsistent” paper tones you asked for */
+  /* More realistic “aged parchment” paper */
   background:
-    radial-gradient(1200px 700px at 18% 22%, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0) 60%),
-    radial-gradient(900px 560px at 70% 18%, rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0) 62%),
-    radial-gradient(880px 620px at 76% 78%, rgba(200, 150, 70, 0.18), rgba(255, 255, 255, 0) 60%),
-    radial-gradient(800px 520px at 22% 78%, rgba(170, 110, 45, 0.14), rgba(255, 255, 255, 0) 62%),
-    radial-gradient(1200px 900px at 50% 50%, var(--paper-0), var(--paper-1) 55%, var(--paper-2) 100%),
+    radial-gradient(1400px 900px at 18% 18%, rgba(255, 255, 255, 0.58), rgba(255, 255, 255, 0) 62%),
+    radial-gradient(1100px 760px at 80% 22%, rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0) 62%),
+    radial-gradient(900px 700px at 84% 84%, rgba(160, 95, 24, 0.16), rgba(255, 255, 255, 0) 62%),
+    radial-gradient(920px 720px at 18% 82%, rgba(120, 70, 18, 0.12), rgba(255, 255, 255, 0) 62%),
+    radial-gradient(1400px 1100px at 50% 52%, var(--paper-0), var(--paper-1) 58%, var(--paper-2) 100%),
     repeating-linear-gradient(
       0deg,
       rgba(17, 17, 17, 0.02) 0px,
       rgba(17, 17, 17, 0.02) 1px,
       rgba(255, 255, 255, 0) 7px,
       rgba(255, 255, 255, 0) 13px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(17, 17, 17, 0.012) 0px,
+      rgba(17, 17, 17, 0.012) 1px,
+      rgba(255, 255, 255, 0) 10px,
+      rgba(255, 255, 255, 0) 19px
     );
 }
 
@@ -68,7 +76,7 @@ body {
   inset: 0;
   pointer-events: none;
   background-image: var(--paper-noise);
-  opacity: 0.55;
+  opacity: 0.62;
   mix-blend-mode: multiply;
 }
 
@@ -79,8 +87,8 @@ body {
   inset: 0;
   pointer-events: none;
   background:
-    radial-gradient(1200px 800px at 50% 40%, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.18) 78%, rgba(0, 0, 0, 0.28) 100%);
-  opacity: 0.25;
+    radial-gradient(1200px 800px at 50% 40%, rgba(0, 0, 0, 0), rgba(80, 40, 10, 0.16) 78%, rgba(60, 28, 8, 0.26) 100%);
+  opacity: 0.22;
 }
 
 .container-narrow {
@@ -207,6 +215,56 @@ body {
   font-weight: 700;
 }
 
+/* Keep content above the fixed collage background */
+.paper-page > main {
+  position: relative;
+  z-index: 2;
+}
+
+/* Calm page transitions and placeholder loading UI */
+@keyframes softFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.soft-fade-in {
+  animation: softFadeIn 260ms ease-out both;
+}
+
+@keyframes calmShimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.bible-placeholder {
+  border: 1px solid rgba(0, 0, 0, 0.10);
+  background:
+    linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.14) 0%,
+      rgba(255, 255, 255, 0.26) 50%,
+      rgba(255, 255, 255, 0.14) 100%
+    );
+  background-size: 220% 100%;
+  animation: calmShimmer 2.4s ease-in-out infinite;
+  border-radius: 12px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .soft-fade-in {
+    animation: none !important;
+  }
+  .bible-placeholder {
+    animation: none !important;
+  }
+}
+
 
 /* Oil for the Journey: transparent content cards over scripture collage */
 .crisp-card {
@@ -286,68 +344,4 @@ body {
   --scripture-bg: url("/scripture-collage.png");
 }
 
-.paper-page {
-  position: relative;
-  background: transparent;
-}
-
-
-/* Full page scripture collage background spread evenly across the page */
-.scripture-collage {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 1;
-}
-
-.scripture-collage-item {
-  position: absolute;
-  max-width: 360px;
-  line-height: 1.25;
-  letter-spacing: 0.1px;
-  white-space: normal;
-  font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
-  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.35);
-  filter: blur(0.15px);
-}
-
-.scripture-collage-item .ref {
-  font-weight: 700;
-}
-
-/* Make sure your content always sits above the collage */
-.paper-page > main {
-  position: relative;
-  z-index: 2;
-}
-
-
-/* Full page scripture collage background spread evenly across the page */
-.scripture-collage {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 1;
-}
-
-.scripture-collage-item {
-  position: absolute;
-  max-width: 360px;
-  line-height: 1.25;
-  letter-spacing: 0.1px;
-  white-space: normal;
-  font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
-  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.35);
-  filter: blur(0.15px);
-}
-
-.scripture-collage-item .ref {
-  font-weight: 700;
-}
-
-/* Make sure your content always sits above the collage */
-.paper-page > main {
-  position: relative;
-  z-index: 2;
-}
-
+/* (Deprecated) Legacy background image hook - kept for future use */

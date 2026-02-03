@@ -9,7 +9,7 @@ export default function HomePage() {
 
       {/* Page content stays the same */}
       <main className="container-narrow" style={{ padding: "30px 0 60px", position: "relative", zIndex: 2 }}>
-        <section className="crisp-card" style={{ padding: 24, marginTop: 18 }}>
+        <section className="crisp-card soft-fade-in" style={{ padding: 24, marginTop: 18 }}>
           <p className="text-muted" style={{ marginBottom: 10 }}>
             Scripture, reflection, and teaching centred on the fullness of salvation and the ongoing journey of faith.
           </p>
