@@ -2,7 +2,7 @@ export default function AboutPage() {
   return (
     <div className="paper-page">
       <main className="container-narrow" style={{ padding: "30px 0 60px" }}>
-        <section className="crisp-card" style={{ padding: 24, marginTop: 18 }}>
+        <section className="crisp-card soft-fade-in" style={{ padding: 24, marginTop: 18 }}>
           <h1 className="heading-cursive" style={{ fontSize: 38, fontWeight: 900, marginBottom: 10 }}>
             About Oil for the Journey
           </h1>

@@ -87,7 +87,7 @@ export default function ScriptureCollage({
               transform: `translate(-50%, -50%) rotate(${rotate}deg)`,
               opacity: o,
               fontSize: `${size}px`,
-              fontWeight: weight as any,
+              fontWeight: weight as React.CSSProperties["fontWeight"],
               color: "rgba(17, 17, 17, 1)",
             }}
           >

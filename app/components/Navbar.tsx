@@ -1,6 +1,12 @@
 import Link from "next/link";
+import { supabaseServer } from "@/lib/supabase-server";
 
-export default function Navbar() {
+export default async function Navbar() {
+  const supabase = await supabaseServer();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
   return (
     <header className="navbar">
       <div className="container-narrow">
@@ -16,6 +22,19 @@ export default function Navbar() {
             <Link className="nav-link" href="/">Home</Link>
             <Link className="nav-link" href="/notes">Notes</Link>
             <Link className="nav-link" href="/about">About</Link>
+            <Link className="nav-link" href="/admin">Admin</Link>
+
+            {user ? (
+              <form action="/logout" method="post">
+                <button
+                  type="submit"
+                  className="nav-link"
+                  style={{ background: "transparent", cursor: "pointer" }}
+                >
+                  Logout
+                </button>
+              </form>
+            ) : null}
           </nav>
         </div>
       </div>

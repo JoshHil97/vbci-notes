@@ -11,15 +11,26 @@ export default function ResetPasswordPage() {
   }
 
   return (
-    <main style={{ padding: 24 }}>
-      <h1>Reset password</h1>
-      <input
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        placeholder="New password"
-        type="password"
-      />
-      <button onClick={handleReset}>Update password</button>
-    </main>
+    <div className="paper-page">
+      <main className="container-narrow" style={{ padding: "30px 0 60px" }}>
+        <section className="crisp-card soft-fade-in" style={{ padding: 24, marginTop: 18, maxWidth: 560 }}>
+          <h1 className="heading-cursive" style={{ fontSize: 34, fontWeight: 900, marginBottom: 10 }}>
+            Reset password
+          </h1>
+
+          <label>New password</label>
+          <input
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="New password"
+            type="password"
+          />
+
+          <button onClick={handleReset} style={{ marginTop: 12 }}>
+            Update password
+          </button>
+        </section>
+      </main>
+    </div>
   );
 }
