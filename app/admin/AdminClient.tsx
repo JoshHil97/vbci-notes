@@ -5,8 +5,12 @@ import { useRouter } from "next/navigation";
 import slugify from "slugify";
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
+import Link from "@tiptap/extension-link";
+import Underline from "@tiptap/extension-underline";
+import Placeholder from "@tiptap/extension-placeholder";
 import type { JSONContent } from "@tiptap/core";
 import { supabaseBrowser } from "@/lib/supabase-client";
+import TextColorMark from "./TextColorMark";
 
 type PostDraft = {
   id: string;
@@ -23,6 +27,43 @@ type PostDraft = {
 type Props = {
   initialPost?: PostDraft | null;
 };
+
+type ToolbarButtonProps = {
+  label: string;
+  title: string;
+  onClick: () => void;
+  isActive?: boolean;
+  disabled?: boolean;
+};
+
+const COLOR_PRESETS = [
+  { label: "Default", value: "" },
+  { label: "Black", value: "#111111" },
+  { label: "Deep brown", value: "#5c3a1e" },
+  { label: "Navy", value: "#1f3a5f" },
+  { label: "Forest green", value: "#2f5d3d" },
+  { label: "Crimson", value: "#8b1e2d" },
+];
+
+function ToolbarButton({
+  label,
+  title,
+  onClick,
+  isActive = false,
+  disabled = false,
+}: ToolbarButtonProps) {
+  return (
+    <button
+      type="button"
+      className={`editor-button ${isActive ? "is-active" : ""}`}
+      title={title}
+      onClick={onClick}
+      disabled={disabled}
+    >
+      {label}
+    </button>
+  );
+}
 
 export default function AdminClient({ initialPost }: Props) {
   const router = useRouter();
@@ -46,12 +87,65 @@ export default function AdminClient({ initialPost }: Props) {
   const [youtubeUrl, setYoutubeUrl] = useState(initialPost?.youtube_url ?? "");
   const [loading, setLoading] = useState(false);
   const [statusMessage, setStatusMessage] = useState<string | null>(null);
+  const [customColor, setCustomColor] = useState("#111111");
 
   const editor = useEditor({
-    extensions: [StarterKit],
+    extensions: [
+      StarterKit.configure({
+        heading: {
+          levels: [2, 3],
+        },
+      }),
+      Underline,
+      Link.configure({
+        openOnClick: false,
+        autolink: true,
+        linkOnPaste: true,
+        defaultProtocol: "https",
+        HTMLAttributes: {
+          rel: "noopener noreferrer",
+          target: "_blank",
+        },
+      }),
+      Placeholder.configure({
+        placeholder:
+          "Write your note here. Use headings, bullets, links, and color to keep the message clear and professional.",
+      }),
+      TextColorMark,
+    ],
     content: initialPost?.content_json ?? "",
     immediatelyRender: false,
   });
+
+  const activeColor =
+    (editor?.getAttributes("textColor").color as string | null | undefined) ??
+    "";
+  const selectedPresetColor = COLOR_PRESETS.some(
+    (color) => color.value === activeColor
+  )
+    ? activeColor
+    : "";
+
+  function handleSetLink() {
+    if (!editor) return;
+
+    const existingHref = (editor.getAttributes("link").href as string) ?? "";
+    const url = window.prompt("Enter URL", existingHref || "https://");
+
+    if (url === null) return;
+
+    if (url.trim() === "") {
+      editor.chain().focus().extendMarkRange("link").unsetLink().run();
+      return;
+    }
+
+    editor
+      .chain()
+      .focus()
+      .extendMarkRange("link")
+      .setLink({ href: url.trim() })
+      .run();
+  }
 
   async function handleSubmit(published: boolean) {
     if (!editor) return;
@@ -147,8 +241,179 @@ export default function AdminClient({ initialPost }: Props) {
         onChange={(e) => setYoutubeUrl(e.target.value)}
       />
 
+      <label>Note content</label>
       <div style={{ marginTop: 16, marginBottom: 16 }}>
-        <EditorContent editor={editor} />
+        <div className="editor-shell">
+          <div className="editor-toolbar">
+            <div className="editor-group">
+              <ToolbarButton
+                label="Undo"
+                title="Undo"
+                onClick={() => editor?.chain().focus().undo().run()}
+                disabled={!editor}
+              />
+              <ToolbarButton
+                label="Redo"
+                title="Redo"
+                onClick={() => editor?.chain().focus().redo().run()}
+                disabled={!editor}
+              />
+            </div>
+
+            <div className="editor-group">
+              <ToolbarButton
+                label="P"
+                title="Paragraph"
+                onClick={() => editor?.chain().focus().setParagraph().run()}
+                isActive={editor?.isActive("paragraph")}
+                disabled={!editor}
+              />
+              <ToolbarButton
+                label="H2"
+                title="Heading 2"
+                onClick={() =>
+                  editor?.chain().focus().toggleHeading({ level: 2 }).run()
+                }
+                isActive={editor?.isActive("heading", { level: 2 })}
+                disabled={!editor}
+              />
+              <ToolbarButton
+                label="H3"
+                title="Heading 3"
+                onClick={() =>
+                  editor?.chain().focus().toggleHeading({ level: 3 }).run()
+                }
+                isActive={editor?.isActive("heading", { level: 3 })}
+                disabled={!editor}
+              />
+            </div>
+
+            <div className="editor-group">
+              <ToolbarButton
+                label="B"
+                title="Bold"
+                onClick={() => editor?.chain().focus().toggleBold().run()}
+                isActive={editor?.isActive("bold")}
+                disabled={!editor}
+              />
+              <ToolbarButton
+                label="I"
+                title="Italic"
+                onClick={() => editor?.chain().focus().toggleItalic().run()}
+                isActive={editor?.isActive("italic")}
+                disabled={!editor}
+              />
+              <ToolbarButton
+                label="U"
+                title="Underline"
+                onClick={() => editor?.chain().focus().toggleUnderline().run()}
+                isActive={editor?.isActive("underline")}
+                disabled={!editor}
+              />
+              <ToolbarButton
+                label="S"
+                title="Strikethrough"
+                onClick={() => editor?.chain().focus().toggleStrike().run()}
+                isActive={editor?.isActive("strike")}
+                disabled={!editor}
+              />
+            </div>
+
+            <div className="editor-group">
+              <ToolbarButton
+                label="Bullets"
+                title="Bullet list"
+                onClick={() => editor?.chain().focus().toggleBulletList().run()}
+                isActive={editor?.isActive("bulletList")}
+                disabled={!editor}
+              />
+              <ToolbarButton
+                label="Numbers"
+                title="Ordered list"
+                onClick={() => editor?.chain().focus().toggleOrderedList().run()}
+                isActive={editor?.isActive("orderedList")}
+                disabled={!editor}
+              />
+              <ToolbarButton
+                label="Quote"
+                title="Block quote"
+                onClick={() => editor?.chain().focus().toggleBlockquote().run()}
+                isActive={editor?.isActive("blockquote")}
+                disabled={!editor}
+              />
+            </div>
+
+            <div className="editor-group">
+              <ToolbarButton
+                label="Link"
+                title="Add or edit link"
+                onClick={handleSetLink}
+                isActive={editor?.isActive("link")}
+                disabled={!editor}
+              />
+              <ToolbarButton
+                label="Line"
+                title="Insert horizontal line"
+                onClick={() => editor?.chain().focus().setHorizontalRule().run()}
+                disabled={!editor}
+              />
+              <ToolbarButton
+                label="Clear"
+                title="Clear formatting"
+                onClick={() =>
+                  editor?.chain().focus().unsetAllMarks().clearNodes().run()
+                }
+                disabled={!editor}
+              />
+            </div>
+
+            <div className="editor-group">
+              <select
+                className="editor-select"
+                title="Text color presets"
+                onChange={(event) => {
+                  if (!editor) return;
+                  const value = event.target.value;
+                  if (!value) {
+                    editor.chain().focus().unsetTextColor().run();
+                    return;
+                  }
+                  setCustomColor(value);
+                  editor.chain().focus().setTextColor(value).run();
+                }}
+                value={selectedPresetColor}
+                disabled={!editor}
+              >
+                {COLOR_PRESETS.map((color) => (
+                  <option key={color.label} value={color.value}>
+                    {color.label}
+                  </option>
+                ))}
+              </select>
+              <input
+                className="editor-color-input"
+                type="color"
+                value={customColor}
+                title="Pick custom text color"
+                onChange={(event) => {
+                  if (!editor) return;
+                  const value = event.target.value;
+                  setCustomColor(value);
+                  editor.chain().focus().setTextColor(value).run();
+                }}
+                disabled={!editor}
+              />
+              <ToolbarButton
+                label="Reset color"
+                title="Reset text color"
+                onClick={() => editor?.chain().focus().unsetTextColor().run()}
+                disabled={!editor}
+              />
+            </div>
+          </div>
+
+          <EditorContent editor={editor} className="editor-surface" />
+        </div>
       </div>
 
       {statusMessage ? (
