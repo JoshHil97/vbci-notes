@@ -69,6 +69,15 @@ function getTimestamp(value: string) {
   return Number.isNaN(timestamp) ? 0 : timestamp;
 }
 
+function toIsoStringOrFallback(value: string | undefined, fallback: string) {
+  if (!value) return fallback;
+
+  const timestamp = new Date(value).getTime();
+  if (Number.isNaN(timestamp)) return fallback;
+
+  return new Date(timestamp).toISOString();
+}
+
 function sortNotes(notes: QuickNote[]) {
   return [...notes].sort(
     (left, right) => getTimestamp(right.updatedAt) - getTimestamp(left.updatedAt)
@@ -86,17 +95,31 @@ function readStoredNotes() {
     if (!Array.isArray(parsed)) return [] as QuickNote[];
 
     return sortNotes(
-      parsed.filter((item): item is QuickNote => {
+      parsed.flatMap((item) => {
         if (!item || typeof item !== "object") return false;
 
         const note = item as Partial<QuickNote>;
-        return (
-          typeof note.id === "string" &&
-          typeof note.content === "string" &&
-          typeof note.createdAt === "string" &&
-          typeof note.updatedAt === "string" &&
-          (note.tag === "idea" || note.tag === "todo" || note.tag === "reminder")
-        );
+        if (typeof note.id !== "string" || typeof note.content !== "string") {
+          return [];
+        }
+
+        const nowIso = new Date().toISOString();
+        const createdAt = toIsoStringOrFallback(note.createdAt, nowIso);
+        const updatedAt = toIsoStringOrFallback(note.updatedAt, createdAt);
+        const tag =
+          note.tag === "idea" || note.tag === "todo" || note.tag === "reminder"
+            ? note.tag
+            : "idea";
+
+        return [
+          {
+            id: note.id,
+            content: note.content,
+            tag,
+            createdAt,
+            updatedAt,
+          } satisfies QuickNote,
+        ];
       })
     );
   } catch {
@@ -138,6 +161,8 @@ function updateStoredNotes(update: (currentNotes: QuickNote[]) => QuickNote[]) {
 }
 
 function formatRelativeDate(value: string, now: number) {
+  if (!getTimestamp(value)) return "Saved recently";
+
   const diffInSeconds = Math.round((getTimestamp(value) - now) / 1000);
   const ranges: Array<[Intl.RelativeTimeFormatUnit, number]> = [
     ["year", 60 * 60 * 24 * 365],
@@ -161,6 +186,7 @@ function formatRelativeDate(value: string, now: number) {
 }
 
 function formatAbsoluteDate(value: string) {
+  if (!getTimestamp(value)) return "Date unavailable";
   return absoluteDateFormatter.format(new Date(value));
 }
 
