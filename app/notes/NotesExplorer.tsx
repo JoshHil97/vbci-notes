@@ -201,63 +201,118 @@ export default function NotesExplorer({
                   </Link>
                 ) : null}
 
-                <div className="note-card-header">
-                  <div className="note-card-status">
-                    <span className="note-card-eyebrow">
-                      Weekly teaching note
+                <div className="note-card-desktop">
+                  <div className="note-card-header">
+                    <div className="note-card-status">
+                      <span className="note-card-eyebrow">
+                        Weekly teaching note
+                      </span>
+                      {!note.published && isAdmin ? (
+                        <span className="note-pill note-pill-draft">Draft</span>
+                      ) : null}
+                    </div>
+
+                    <h2 className="note-card-title">
+                      <Link href={`/notes/${note.slug}`}>{note.title}</Link>
+                    </h2>
+
+                    {note.summary ? (
+                      <p className="note-card-summary">{note.summary}</p>
+                    ) : (
+                      <p className="note-card-summary is-placeholder">
+                        Read the full note to revisit the teaching structure,
+                        scripture, and key points.
+                      </p>
+                    )}
+                  </div>
+
+                  <dl className="note-meta">
+                    {note.speaker ? (
+                      <div className="note-meta-item note-meta-item-speaker">
+                        <dt>Speaker</dt>
+                        <dd>{note.speaker}</dd>
+                      </div>
+                    ) : null}
+
+                    {sharedDate ? (
+                      <div className="note-meta-item note-meta-item-shared">
+                        <dt>Shared</dt>
+                        <dd>{sharedDate}</dd>
+                      </div>
+                    ) : null}
+
+                    {createdDate ? (
+                      <div className="note-meta-item note-meta-item-added">
+                        <dt>Added</dt>
+                        <dd>{createdDate}</dd>
+                      </div>
+                    ) : null}
+                  </dl>
+
+                  <div className="note-card-footer">
+                    <span className="text-muted" suppressHydrationWarning>
+                      {relativeCreatedDate
+                        ? `Added ${relativeCreatedDate}`
+                        : "Ready to read"}
                     </span>
-                    {!note.published && isAdmin ? (
-                      <span className="note-pill note-pill-draft">Draft</span>
+
+                    <Link className="note-card-link" href={`/notes/${note.slug}`}>
+                      Read note
+                    </Link>
+                  </div>
+                </div>
+
+                <div className="note-card-mobile">
+                  <div className="note-card-mobile-header">
+                    <div className="note-card-status">
+                      <span className="note-card-eyebrow">
+                        Weekly teaching note
+                      </span>
+                      {!note.published && isAdmin ? (
+                        <span className="note-pill note-pill-draft">Draft</span>
+                      ) : null}
+                    </div>
+
+                    <h2 className="note-card-title note-card-mobile-title">
+                      <Link href={`/notes/${note.slug}`}>{note.title}</Link>
+                    </h2>
+
+                    {note.summary ? (
+                      <p className="note-card-summary note-card-mobile-summary">
+                        {note.summary}
+                      </p>
+                    ) : (
+                      <p className="note-card-summary note-card-mobile-summary is-placeholder">
+                        Read the full note to revisit the teaching structure,
+                        scripture, and key points.
+                      </p>
+                    )}
+                  </div>
+
+                  <div className="note-card-mobile-meta">
+                    {note.speaker ? (
+                      <span className="note-card-mobile-meta-item">
+                        {note.speaker}
+                      </span>
+                    ) : null}
+                    {sharedDate ? (
+                      <span className="note-card-mobile-meta-item">
+                        {sharedDate}
+                      </span>
                     ) : null}
                   </div>
 
-                  <h2 className="note-card-title">
-                    <Link href={`/notes/${note.slug}`}>{note.title}</Link>
-                  </h2>
+                  <div className="note-card-mobile-footer">
+                    <span className="text-muted" suppressHydrationWarning>
+                      {relativeCreatedDate
+                        ? `Added ${relativeCreatedDate}`
+                        : "Ready to read"}
+                    </span>
 
-                  {note.summary ? (
-                    <p className="note-card-summary">{note.summary}</p>
-                  ) : (
-                    <p className="note-card-summary is-placeholder">
-                      Read the full note to revisit the teaching structure,
-                      scripture, and key points.
-                    </p>
-                  )}
-                </div>
-
-                <dl className="note-meta">
-                  {note.speaker ? (
-                    <div className="note-meta-item note-meta-item-speaker">
-                      <dt>Speaker</dt>
-                      <dd>{note.speaker}</dd>
-                    </div>
-                  ) : null}
-
-                  {sharedDate ? (
-                    <div className="note-meta-item note-meta-item-shared">
-                      <dt>Shared</dt>
-                      <dd>{sharedDate}</dd>
-                    </div>
-                  ) : null}
-
-                  {createdDate ? (
-                    <div className="note-meta-item note-meta-item-added">
-                      <dt>Added</dt>
-                      <dd>{createdDate}</dd>
-                    </div>
-                  ) : null}
-                </dl>
-
-                <div className="note-card-footer">
-                  <span className="text-muted" suppressHydrationWarning>
-                    {relativeCreatedDate
-                      ? `Added ${relativeCreatedDate}`
-                      : "Ready to read"}
-                  </span>
-
-                  <Link className="note-card-link" href={`/notes/${note.slug}`}>
-                    Read note
-                  </Link>
+                    <Link className="note-card-link" href={`/notes/${note.slug}`}>
+                      Read note
+                    </Link>
+                  </div>
                 </div>
               </article>
             );
