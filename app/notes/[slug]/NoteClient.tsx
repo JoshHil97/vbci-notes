@@ -7,11 +7,9 @@ import StarterKit from "@tiptap/starter-kit";
 import type { JSONContent } from "@tiptap/core";
 import { useEffect } from "react";
 import TextColorMark from "@/app/admin/TextColorMark";
-import { getYouTubeEmbedUrl } from "@/lib/youtube";
 
 type Props = {
   content: JSONContent | null;
-  youtubeUrl?: string | null;
 };
 
 type HeadingItem = {
@@ -83,11 +81,7 @@ function extractHeadings(content: JSONContent | null): HeadingItem[] {
   return headings;
 }
 
-function toEmbedUrl(url: string) {
-  return getYouTubeEmbedUrl(url);
-}
-
-export default function NoteClient({ content, youtubeUrl }: Props) {
+export default function NoteClient({ content }: Props) {
   const headings = extractHeadings(content);
   const editor = useEditor({
     extensions: [
@@ -114,8 +108,6 @@ export default function NoteClient({ content, youtubeUrl }: Props) {
     immediatelyRender: false,
   });
 
-  const embedSrc = youtubeUrl ? toEmbedUrl(youtubeUrl) : null;
-
   useEffect(() => {
     if (!editor) return;
 
@@ -132,20 +124,6 @@ export default function NoteClient({ content, youtubeUrl }: Props) {
 
   return (
     <div className="note-reading-stack">
-      {embedSrc ? (
-        <section className="note-media-card">
-          <div className="note-video-frame">
-            <iframe
-              src={embedSrc}
-              title="YouTube video"
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowFullScreen
-            />
-          </div>
-        </section>
-      ) : null}
-
       <div className={`note-reader-layout ${headings.length ? "" : "is-single-column"}`.trim()}>
         {headings.length ? (
           <aside className="note-outline" aria-label="Note sections">

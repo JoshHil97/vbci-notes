@@ -20,6 +20,7 @@ Soft vignette and subtle texture
   --card: rgba(255, 255, 255, 0.22);
   --card-2: rgba(255, 255, 255, 0.14);
   --border: rgba(17, 17, 17, 0.18);
+  --verse-rail-height: 58px;
 
   --shadow: rgba(0, 0, 0, 0.18);
 }
@@ -37,6 +38,7 @@ body {
 body {
   color: var(--ink);
   background: var(--paper-0);
+  padding-bottom: calc(var(--verse-rail-height) + env(safe-area-inset-bottom));
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -793,6 +795,10 @@ body {
   margin-bottom: 24px;
 }
 
+.note-detail-media {
+  margin-bottom: 28px;
+}
+
 .note-detail-title {
   font-size: clamp(2rem, 4vw, 3rem);
   font-weight: 700;
@@ -1015,6 +1021,46 @@ body {
   aspect-ratio: 16 / 9;
 }
 
+.note-video-poster {
+  position: relative;
+  display: block;
+  min-height: 220px;
+  overflow: hidden;
+  border-radius: 18px;
+  background-color: rgba(0, 0, 0, 0.16);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.note-video-poster::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.06),
+    rgba(0, 0, 0, 0.36)
+  );
+}
+
+.note-video-poster-badge {
+  position: absolute;
+  left: 18px;
+  bottom: 18px;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: rgba(17, 17, 17, 0.8);
+  color: rgba(255, 255, 255, 0.96);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
 .note-video-frame iframe {
   position: absolute;
   inset: 0;
@@ -1079,6 +1125,10 @@ body {
 }
 
 @media (max-width: 720px) {
+  :root {
+    --verse-rail-height: 62px;
+  }
+
   .container-narrow {
     width: min(100%, calc(100% - 24px));
   }
@@ -1204,8 +1254,27 @@ body {
     flex-direction: column;
   }
 
+  .note-detail-media {
+    margin-bottom: 22px;
+  }
+
   .note-outline {
     position: static;
+  }
+
+  .note-media-card {
+    padding: 14px;
+  }
+
+  .note-video-poster {
+    min-height: 170px;
+  }
+
+  .note-video-poster-badge {
+    left: 12px;
+    bottom: 12px;
+    padding: 8px 12px;
+    font-size: 11px;
   }
 
   .admin-note-actions {
