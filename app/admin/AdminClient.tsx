@@ -186,7 +186,11 @@ export default function AdminClient({ initialPost }: Props) {
     }
 
     setStatusMessage(published ? "Published successfully." : "Draft saved.");
-    router.push(published ? `/notes/${slug}` : "/admin");
+    router.push(
+      published
+        ? `/notes/${slug}?status=${isEditing ? "updated" : "published"}`
+        : "/admin?status=draft-saved"
+    );
   }
 
   return (

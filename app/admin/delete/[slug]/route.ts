@@ -15,6 +15,6 @@ export async function POST(request: Request, context: RouteContext) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 
-  const url = new URL("/admin", request.url);
+  const url = new URL("/admin?status=deleted", request.url);
   return NextResponse.redirect(url);
 }
