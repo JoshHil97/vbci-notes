@@ -7,6 +7,7 @@ import StarterKit from "@tiptap/starter-kit";
 import type { JSONContent } from "@tiptap/core";
 import { useEffect } from "react";
 import TextColorMark from "@/app/admin/TextColorMark";
+import { getYouTubeEmbedUrl } from "@/lib/youtube";
 
 type Props = {
   content: JSONContent | null;
@@ -83,33 +84,7 @@ function extractHeadings(content: JSONContent | null): HeadingItem[] {
 }
 
 function toEmbedUrl(url: string) {
-  // Accepts full YouTube URLs and converts to embed
-  // If it is already an embed URL, it returns it unchanged
-  try {
-    if (url.includes("youtube.com/embed/")) return url;
-
-    const u = new URL(url);
-
-    // https://www.youtube.com/watch\?v\=VIDEOID
-    const v = u.searchParams.get("v");
-    if (v) return `https://www.youtube.com/embed/${v}`;
-
-    // https://youtu.be/VIDEOID
-    if (u.hostname === "youtu.be") {
-      const id = u.pathname.replace("/", "");
-      if (id) return `https://www.youtube.com/embed/${id}`;
-    }
-
-    // https://www.youtube.com/live/VIDEOID
-    if (u.pathname.startsWith("/live/")) {
-      const id = u.pathname.split("/live/")[1]?.split(/[/?#]/)[0];
-      if (id) return `https://www.youtube.com/embed/${id}`;
-    }
-
-    return url;
-  } catch {
-    return url;
-  }
+  return getYouTubeEmbedUrl(url);
 }
 
 export default function NoteClient({ content, youtubeUrl }: Props) {

@@ -96,6 +96,10 @@ body {
   margin-inline: auto;
 }
 
+.notes-page-main {
+  padding: 30px 0 60px;
+}
+
 .heading-cursive {
   font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
   letter-spacing: -0.02em;
@@ -543,6 +547,7 @@ body {
   width: 100%;
   min-height: 48px;
   padding: 12px 16px;
+  font-size: 16px;
   border: 1px solid rgba(17, 17, 17, 0.14);
   border-radius: 14px;
   background: rgba(255, 255, 255, 0.78);
@@ -602,7 +607,7 @@ body {
   display: grid;
   gap: 16px;
   min-height: 100%;
-  padding: 22px;
+  padding: 0;
   border: 1px solid rgba(17, 17, 17, 0.12);
   border-radius: 20px;
   background: linear-gradient(
@@ -615,6 +620,7 @@ body {
     transform 180ms ease,
     box-shadow 180ms ease,
     border-color 180ms ease;
+  overflow: hidden;
 }
 
 .note-card:hover {
@@ -623,9 +629,53 @@ body {
   box-shadow: 0 20px 46px rgba(0, 0, 0, 0.16);
 }
 
+.note-card-media {
+  position: relative;
+  display: block;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.08);
+}
+
+.note-card-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.04),
+    rgba(0, 0, 0, 0.24)
+  );
+}
+
+.note-card-thumbnail {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.note-card-play {
+  position: absolute;
+  left: 16px;
+  bottom: 16px;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: rgba(17, 17, 17, 0.76);
+  color: rgba(255, 255, 255, 0.96);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
 .note-card-header {
   display: grid;
   gap: 12px;
+  padding: 22px 22px 0;
 }
 
 .note-card-status {
@@ -678,6 +728,7 @@ body {
   display: grid;
   gap: 12px;
   grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  padding: 0 22px;
 }
 
 .note-meta-item dt {
@@ -701,6 +752,7 @@ body {
   justify-content: space-between;
   gap: 12px;
   margin-top: auto;
+  padding: 0 22px 22px;
 }
 
 .note-card-link {
@@ -1027,18 +1079,120 @@ body {
 }
 
 @media (max-width: 720px) {
+  .container-narrow {
+    width: min(100%, calc(100% - 24px));
+  }
+
+  .notes-page-main {
+    padding: 20px 0 40px;
+  }
+
   .notes-shell {
-    padding: 22px;
+    padding: 18px 14px;
+    margin-top: 12px;
+    border-radius: 16px;
+  }
+
+  .notes-hero {
+    gap: 10px;
+    margin-bottom: 18px;
   }
 
   .notes-title {
-    font-size: 2.35rem;
+    font-size: clamp(2rem, 11vw, 2.6rem);
+    line-height: 0.98;
+  }
+
+  .notes-intro {
+    font-size: 1rem;
+    line-height: 1.58;
+  }
+
+  .notes-context {
+    font-size: 0.95rem;
+    line-height: 1.55;
+  }
+
+  .notes-toolbar {
+    gap: 14px;
+    padding: 14px;
+    border-radius: 16px;
+  }
+
+  .notes-sort-group {
+    gap: 8px;
+  }
+
+  .notes-sort-button {
+    flex: 1 1 130px;
+    min-height: 44px;
+    justify-content: center;
+  }
+
+  .notes-results {
+    font-size: 13px;
+  }
+
+  .notes-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .note-card {
+    gap: 12px;
+    border-radius: 18px;
+  }
+
+  .note-card-media {
+    aspect-ratio: 2 / 1;
+  }
+
+  .note-card-play {
+    left: 12px;
+    bottom: 12px;
+    padding: 7px 10px;
+    font-size: 11px;
+  }
+
+  .note-card-header {
+    gap: 10px;
+    padding: 16px 16px 0;
+  }
+
+  .note-card-title {
+    font-size: clamp(1.55rem, 8.4vw, 2rem);
+  }
+
+  .note-card-summary {
+    line-height: 1.58;
+    -webkit-line-clamp: 5;
+  }
+
+  .note-meta {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px 12px;
+    padding: 0 16px;
+  }
+
+  .note-meta-item dd {
+    font-size: 0.92rem;
   }
 
   .note-card-footer,
   .admin-note-row {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  .note-card-footer {
+    gap: 10px;
+    padding: 0 16px 16px;
+  }
+
+  .note-card-link {
+    width: 100%;
+    min-height: 44px;
+    justify-content: center;
   }
 
   .note-source-card,
@@ -1056,6 +1210,12 @@ body {
 
   .admin-note-actions {
     width: 100%;
+  }
+}
+
+@media (max-width: 420px) {
+  .note-meta {
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 

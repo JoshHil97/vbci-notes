@@ -1,7 +1,9 @@
 "use client";
+/* eslint-disable @next/next/no-img-element */
 
 import Link from "next/link";
 import { useDeferredValue, useState } from "react";
+import { getYouTubeThumbnailUrl } from "@/lib/youtube";
 
 type NoteListItem = {
   id: string;
@@ -9,6 +11,7 @@ type NoteListItem = {
   slug: string;
   summary: string | null;
   speaker: string | null;
+  youtube_url: string | null;
   preached_at: string | null;
   created_at: string | null;
   published: boolean | null;
@@ -172,6 +175,9 @@ export default function NotesExplorer({
             const sharedDate = formatAbsoluteDate(note.preached_at);
             const createdDate = formatAbsoluteDate(note.created_at);
             const relativeCreatedDate = formatRelativeDate(note.created_at);
+            const thumbnailUrl = note.youtube_url
+              ? getYouTubeThumbnailUrl(note.youtube_url)
+              : null;
 
             return (
               <article
@@ -179,6 +185,22 @@ export default function NotesExplorer({
                 className="note-card soft-fade-in"
                 style={{ animationDelay: `${Math.min(index * 70, 280)}ms` }}
               >
+                {thumbnailUrl ? (
+                  <Link
+                    href={`/notes/${note.slug}`}
+                    className="note-card-media"
+                    aria-label={`Open ${note.title}`}
+                  >
+                    <img
+                      className="note-card-thumbnail"
+                      src={thumbnailUrl}
+                      alt={`${note.title} video thumbnail`}
+                      loading="lazy"
+                    />
+                    <span className="note-card-play">Watch message</span>
+                  </Link>
+                ) : null}
+
                 <div className="note-card-header">
                   <div className="note-card-status">
                     <span className="note-card-eyebrow">

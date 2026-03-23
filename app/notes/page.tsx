@@ -10,6 +10,7 @@ type PostListItem = {
   slug: string;
   summary: string | null;
   speaker: string | null;
+  youtube_url: string | null;
   preached_at: string | null;
   created_at: string | null;
   published: boolean | null;
@@ -24,7 +25,9 @@ export default async function NotesPage() {
 
   const baseQuery = supabase
     .from("posts")
-    .select("id, title, slug, summary, speaker, preached_at, created_at, published")
+    .select(
+      "id, title, slug, summary, speaker, youtube_url, preached_at, created_at, published"
+    )
     .order("created_at", { ascending: false });
 
   const { data: notes } = user
@@ -39,10 +42,7 @@ export default async function NotesPage() {
     <div className="paper-page">
       <ScriptureCollage />
 
-      <main
-        className="container-narrow"
-        style={{ position: "relative", zIndex: 2, padding: "30px 0 60px" }}
-      >
+      <main className="container-narrow notes-page-main">
         <section className="crisp-card soft-fade-in notes-shell">
           <div className="notes-hero">
             <p className="section-kicker">Oil for the Journey</p>
