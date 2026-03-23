@@ -761,6 +761,215 @@ body {
   gap: 10px;
 }
 
+.note-detail-container {
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+.note-reading-stack {
+  display: grid;
+  gap: 22px;
+  margin-top: 18px;
+}
+
+.note-source-card,
+.note-article,
+.note-outline,
+.note-media-card {
+  border: 1px solid rgba(17, 17, 17, 0.1);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.24);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.1);
+}
+
+.note-source-card {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 20px 22px;
+}
+
+.note-source-copy {
+  display: grid;
+  gap: 10px;
+}
+
+.note-source-link {
+  color: rgba(17, 17, 17, 0.9);
+  font-size: 0.96rem;
+  line-height: 1.6;
+  word-break: break-word;
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+
+.note-source-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 16px;
+  border: 1px solid rgba(17, 17, 17, 0.14);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.52);
+  color: var(--ink);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.note-source-button:hover {
+  background: rgba(255, 255, 255, 0.88);
+}
+
+.note-reader-layout {
+  display: grid;
+  grid-template-columns: minmax(220px, 260px) minmax(0, 1fr);
+  gap: 22px;
+  align-items: start;
+}
+
+.note-reader-layout.is-single-column {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.note-outline {
+  position: sticky;
+  top: 92px;
+  display: grid;
+  gap: 14px;
+  padding: 18px;
+}
+
+.note-outline-nav {
+  display: grid;
+  gap: 6px;
+}
+
+.note-outline-link {
+  display: block;
+  padding: 8px 10px;
+  border-radius: 12px;
+  color: rgba(17, 17, 17, 0.76);
+  text-decoration: none;
+  line-height: 1.45;
+}
+
+.note-outline-link:hover {
+  background: rgba(255, 255, 255, 0.46);
+  color: rgba(17, 17, 17, 0.96);
+}
+
+.note-outline-link.is-subsection {
+  padding-left: 20px;
+  color: rgba(17, 17, 17, 0.62);
+}
+
+.note-article {
+  padding: clamp(22px, 3vw, 34px);
+}
+
+.note-prose .ProseMirror {
+  color: rgba(17, 17, 17, 0.92);
+  font-size: clamp(1rem, 1.4vw, 1.08rem);
+  line-height: 1.92;
+  outline: none;
+}
+
+.note-prose .ProseMirror > *:first-child {
+  margin-top: 0;
+}
+
+.note-prose .ProseMirror > *:last-child {
+  margin-bottom: 0;
+}
+
+.note-prose .ProseMirror h2,
+.note-prose .ProseMirror h3 {
+  scroll-margin-top: 110px;
+  font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  letter-spacing: -0.02em;
+  color: rgba(17, 17, 17, 0.96);
+}
+
+.note-prose .ProseMirror h2 {
+  margin: 2.4rem 0 0.9rem;
+  padding-top: 1.1rem;
+  border-top: 1px solid rgba(17, 17, 17, 0.1);
+  font-size: clamp(1.6rem, 2.8vw, 2rem);
+  line-height: 1.18;
+}
+
+.note-prose .ProseMirror h3 {
+  margin: 1.7rem 0 0.75rem;
+  font-size: clamp(1.24rem, 2vw, 1.45rem);
+  line-height: 1.24;
+}
+
+.note-prose .ProseMirror p {
+  margin: 1rem 0;
+}
+
+.note-prose .ProseMirror p + p {
+  margin-top: 1.08rem;
+}
+
+.note-prose .ProseMirror ul,
+.note-prose .ProseMirror ol {
+  margin: 1rem 0 1.2rem 1.35rem;
+}
+
+.note-prose .ProseMirror li {
+  margin: 0.34rem 0;
+  padding-left: 0.2rem;
+}
+
+.note-prose .ProseMirror blockquote {
+  margin: 1.5rem 0;
+  padding: 0.4rem 0 0.4rem 1rem;
+  border-left: 3px solid rgba(92, 58, 30, 0.28);
+  color: rgba(17, 17, 17, 0.7);
+  font-style: italic;
+}
+
+.note-prose .ProseMirror hr {
+  margin: 1.7rem 0;
+  border: none;
+  border-top: 1px solid rgba(17, 17, 17, 0.16);
+}
+
+.note-prose .ProseMirror a {
+  color: rgba(17, 17, 17, 0.94);
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+
+.note-media-card {
+  display: grid;
+  gap: 16px;
+  padding: 20px 22px;
+}
+
+.note-media-header {
+  display: grid;
+  gap: 8px;
+}
+
+.note-video-frame {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 18px;
+  background: rgba(0, 0, 0, 0.08);
+  aspect-ratio: 16 / 9;
+}
+
+.note-video-frame iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
 .admin-note-list {
   display: grid;
   gap: 12px;
@@ -830,6 +1039,19 @@ body {
   .admin-note-row {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  .note-source-card,
+  .note-reader-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .note-source-card {
+    flex-direction: column;
+  }
+
+  .note-outline {
+    position: static;
   }
 
   .admin-note-actions {

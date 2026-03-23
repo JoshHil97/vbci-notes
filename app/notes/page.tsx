@@ -68,9 +68,6 @@ export default async function NotesPage() {
                   {draftCount} drafts
                 </span>
               ) : null}
-              <span className="note-pill note-pill-soft">
-                Stored in Supabase and published intentionally
-              </span>
             </div>
           </div>
 

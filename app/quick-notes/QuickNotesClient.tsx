@@ -96,7 +96,7 @@ function readStoredNotes() {
 
     return sortNotes(
       parsed.flatMap((item) => {
-        if (!item || typeof item !== "object") return false;
+        if (!item || typeof item !== "object") return [];
 
         const note = item as Partial<QuickNote>;
         if (typeof note.id !== "string" || typeof note.content !== "string") {

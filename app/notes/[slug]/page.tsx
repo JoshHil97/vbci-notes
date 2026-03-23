@@ -64,7 +64,7 @@ export default async function NotePage({ params, searchParams }: PageProps) {
             <div className="status-banner soft-fade-in">{statusMessage}</div>
           ) : null}
 
-          <div style={{ maxWidth: 900, margin: "0 auto" }}>
+          <div className="note-detail-container">
             <div className="note-detail-header">
               <p className="section-kicker">Weekly teaching note</p>
 
