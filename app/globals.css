@@ -476,6 +476,12 @@ body {
   line-height: 0.95;
 }
 
+.notes-subtitle {
+  font-size: 0.88rem;
+  letter-spacing: 0.18em;
+  color: rgba(17, 17, 17, 0.5);
+}
+
 .notes-intro {
   max-width: 780px;
   font-size: clamp(1.05rem, 2.1vw, 1.2rem);
@@ -1125,6 +1131,11 @@ body {
   .notes-title {
     font-size: clamp(2rem, 11vw, 2.6rem);
     line-height: 0.98;
+  }
+
+  .notes-subtitle {
+    font-size: 0.8rem;
+    letter-spacing: 0.16em;
   }
 
   .notes-intro {

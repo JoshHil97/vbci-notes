@@ -45,9 +45,9 @@ export default async function NotesPage() {
       <main className="container-narrow notes-page-main">
         <section className="crisp-card soft-fade-in notes-shell">
           <div className="notes-hero">
-            <p className="section-kicker">Oil for the Journey</p>
+            <h1 className="heading-cursive notes-title">Oil for the Journey</h1>
 
-            <h1 className="heading-cursive notes-title">Weekly Notes</h1>
+            <p className="section-kicker notes-subtitle">Weekly Notes</p>
 
             <p className="notes-intro">
               A scripture-first archive for revisiting weekly teaching,
