@@ -1,6 +1,7 @@
 import Link from "next/link";
 import ScriptureCollage from "@/app/components/ScriptureCollage";
 import AdminControls from "@/app/components/AdminControls";
+import EmailSubscribeCard from "@/app/components/EmailSubscribeCard";
 import { supabaseServer } from "@/lib/supabase-server";
 import NotesExplorer from "./NotesExplorer";
 
@@ -70,6 +71,12 @@ export default async function NotesPage() {
               ) : null}
             </div>
           </div>
+
+          <EmailSubscribeCard
+            source="notes"
+            title="Stay close to new notes"
+            description="Join the email list for weekly teaching updates and future post reminders."
+          />
 
           {user ? (
             <div style={{ marginBottom: 20 }}>
