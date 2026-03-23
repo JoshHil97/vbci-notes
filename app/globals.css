@@ -733,6 +733,10 @@ body {
   padding: 0 22px;
 }
 
+.note-meta-item {
+  min-width: 0;
+}
+
 .note-meta-item dt {
   font-size: 11px;
   font-weight: 700;
@@ -1185,12 +1189,12 @@ body {
 
   .notes-grid {
     grid-template-columns: 1fr;
-    gap: 14px;
+    gap: 12px;
   }
 
   .note-card {
-    gap: 12px;
-    border-radius: 18px;
+    gap: 10px;
+    border-radius: 16px;
   }
 
   .note-card-media {
@@ -1205,44 +1209,79 @@ body {
   }
 
   .note-card-header {
-    gap: 10px;
-    padding: 16px 16px 0;
+    gap: 8px;
+    padding: 14px 14px 0;
   }
 
   .note-card-title {
-    font-size: clamp(1.55rem, 8.4vw, 2rem);
+    font-size: clamp(1.34rem, 7.2vw, 1.68rem);
+    line-height: 1.08;
   }
 
   .note-card-summary {
-    line-height: 1.58;
-    -webkit-line-clamp: 5;
+    font-size: 0.97rem;
+    line-height: 1.5;
+    -webkit-line-clamp: 3;
   }
 
   .note-meta {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 10px 12px;
-    padding: 0 16px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 0 14px;
+  }
+
+  .note-meta-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 10px;
+    border: 1px solid rgba(17, 17, 17, 0.1);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.34);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22);
+  }
+
+  .note-meta-item dt,
+  .note-meta-item dd {
+    margin: 0;
+  }
+
+  .note-meta-item dt {
+    font-size: 9px;
+    letter-spacing: 0.12em;
   }
 
   .note-meta-item dd {
-    font-size: 0.92rem;
+    font-size: 0.82rem;
+    line-height: 1.2;
   }
 
-  .note-card-footer,
+  .note-meta-item-added {
+    display: none;
+  }
+
+  .note-card-footer {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 0 14px 14px;
+  }
+
   .admin-note-row {
     flex-direction: column;
     align-items: flex-start;
   }
 
-  .note-card-footer {
-    gap: 10px;
-    padding: 0 16px 16px;
+  .note-card-footer .text-muted {
+    font-size: 0.82rem;
   }
 
   .note-card-link {
-    width: 100%;
-    min-height: 44px;
-    justify-content: center;
+    min-height: 40px;
+    padding: 8px 12px;
+    white-space: nowrap;
   }
 
   .note-source-card,
@@ -1283,8 +1322,25 @@ body {
 }
 
 @media (max-width: 420px) {
+  .note-card {
+    border-radius: 14px;
+  }
+
+  .note-card-header {
+    padding: 12px 12px 0;
+  }
+
   .note-meta {
-    grid-template-columns: minmax(0, 1fr);
+    padding: 0 12px;
+  }
+
+  .note-card-footer {
+    padding: 0 12px 12px;
+  }
+
+  .note-card-link {
+    min-height: 38px;
+    padding: 7px 11px;
   }
 }
 

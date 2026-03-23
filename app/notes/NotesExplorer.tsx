@@ -227,21 +227,21 @@ export default function NotesExplorer({
 
                 <dl className="note-meta">
                   {note.speaker ? (
-                    <div className="note-meta-item">
+                    <div className="note-meta-item note-meta-item-speaker">
                       <dt>Speaker</dt>
                       <dd>{note.speaker}</dd>
                     </div>
                   ) : null}
 
                   {sharedDate ? (
-                    <div className="note-meta-item">
+                    <div className="note-meta-item note-meta-item-shared">
                       <dt>Shared</dt>
                       <dd>{sharedDate}</dd>
                     </div>
                   ) : null}
 
                   {createdDate ? (
-                    <div className="note-meta-item">
+                    <div className="note-meta-item note-meta-item-added">
                       <dt>Added</dt>
                       <dd>{createdDate}</dd>
                     </div>
