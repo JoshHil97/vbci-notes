@@ -2,10 +2,7 @@ import { notFound } from "next/navigation";
 import NoteClient from "./NoteClient";
 import AdminControls from "../components/AdminControls";
 import { supabaseServer } from "../../../lib/supabase-server";
-import {
-  getYouTubeEmbedUrl,
-  getYouTubeThumbnailUrl,
-} from "@/lib/youtube";
+import { getYouTubeEmbedUrl } from "@/lib/youtube";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -62,9 +59,6 @@ export default async function NotePage({ params, searchParams }: PageProps) {
   const embedUrl = post.youtube_url
     ? getYouTubeEmbedUrl(post.youtube_url)
     : null;
-  const thumbnailUrl = post.youtube_url
-    ? getYouTubeThumbnailUrl(post.youtube_url)
-    : null;
 
   return (
     <div className="paper-page">
@@ -77,21 +71,6 @@ export default async function NotePage({ params, searchParams }: PageProps) {
           <div className="note-detail-container">
             {embedUrl ? (
               <section className="note-media-card note-detail-media soft-fade-in">
-                {thumbnailUrl ? (
-                  <a
-                    className="note-video-poster"
-                    href={post.youtube_url ?? embedUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{ backgroundImage: `url(${thumbnailUrl})` }}
-                    aria-label={`Watch ${post.title} on YouTube`}
-                  >
-                    <span className="note-video-poster-badge">
-                      Watch on YouTube
-                    </span>
-                  </a>
-                ) : null}
-
                 <div className="note-video-frame">
                   <iframe
                     src={embedUrl}

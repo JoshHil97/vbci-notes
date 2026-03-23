@@ -1025,46 +1025,6 @@ body {
   aspect-ratio: 16 / 9;
 }
 
-.note-video-poster {
-  position: relative;
-  display: block;
-  min-height: 220px;
-  overflow: hidden;
-  border-radius: 18px;
-  background-color: rgba(0, 0, 0, 0.16);
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-
-.note-video-poster::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    180deg,
-    rgba(0, 0, 0, 0.06),
-    rgba(0, 0, 0, 0.36)
-  );
-}
-
-.note-video-poster-badge {
-  position: absolute;
-  left: 18px;
-  bottom: 18px;
-  z-index: 1;
-  display: inline-flex;
-  align-items: center;
-  padding: 10px 14px;
-  border-radius: 999px;
-  background: rgba(17, 17, 17, 0.8);
-  color: rgba(255, 255, 255, 0.96);
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
 .note-video-frame iframe {
   position: absolute;
   inset: 0;
@@ -1303,17 +1263,6 @@ body {
 
   .note-media-card {
     padding: 14px;
-  }
-
-  .note-video-poster {
-    min-height: 170px;
-  }
-
-  .note-video-poster-badge {
-    left: 12px;
-    bottom: 12px;
-    padding: 8px 12px;
-    font-size: 11px;
   }
 
   .admin-note-actions {
