@@ -29,6 +29,7 @@ export default function EmailSubscribeCard({
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    const form = event.currentTarget;
 
     if (!email.trim()) {
       setState({
@@ -41,7 +42,7 @@ export default function EmailSubscribeCard({
     setIsSubmitting(true);
     setState(DEFAULT_STATE);
 
-    const formData = new FormData(event.currentTarget);
+    const formData = new FormData(form);
 
     try {
       const response = await fetch("/api/subscribe", {
@@ -75,7 +76,7 @@ export default function EmailSubscribeCard({
         tone: "success",
         message: result.message ?? "You are subscribed.",
       });
-      event.currentTarget.reset();
+      form.reset();
     } catch {
       setState({
         tone: "error",
