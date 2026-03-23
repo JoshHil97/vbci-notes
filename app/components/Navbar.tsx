@@ -21,6 +21,7 @@ export default async function Navbar() {
           <nav className="nav-links" aria-label="Primary">
             <Link className="nav-link" href="/">Home</Link>
             <Link className="nav-link" href="/notes">Notes</Link>
+            <Link className="nav-link" href="/quick-notes">Quick Notes</Link>
             <Link className="nav-link" href="/about">About</Link>
             <Link className="nav-link" href="/admin">Admin</Link>
 

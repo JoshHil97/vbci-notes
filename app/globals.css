@@ -194,6 +194,34 @@ body {
   color: rgba(17, 17, 17, 0.62);
 }
 
+@media (max-width: 760px) {
+  .nav-inner {
+    flex-wrap: wrap;
+    align-items: flex-start;
+  }
+
+  .brand {
+    max-width: 100%;
+  }
+
+  .brand small {
+    max-width: 100%;
+    font-size: 12px;
+    line-height: 1.35;
+  }
+
+  .nav-links {
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 8px;
+  }
+
+  .nav-link {
+    padding: 8px 9px;
+  }
+}
+
 /* Full page scripture collage background */
 .scripture-collage {
   position: fixed;

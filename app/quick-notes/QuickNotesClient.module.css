@@ -1,0 +1,458 @@
+.shell {
+  display: grid;
+  gap: 24px;
+}
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  gap: 18px;
+  padding: clamp(24px, 4vw, 36px);
+  background:
+    radial-gradient(circle at top right, rgba(255, 255, 255, 0.42), transparent 42%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0.16));
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: auto -30px -70px auto;
+  width: 180px;
+  height: 180px;
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(92, 58, 30, 0.16), transparent 68%);
+  pointer-events: none;
+}
+
+.heroCopy {
+  display: grid;
+  gap: 12px;
+  max-width: 760px;
+}
+
+.kicker {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(17, 17, 17, 0.54);
+}
+
+.title {
+  font-size: clamp(2.6rem, 5vw, 4rem);
+  line-height: 0.94;
+}
+
+.subtitle {
+  max-width: 720px;
+  font-size: clamp(1.05rem, 2vw, 1.22rem);
+  line-height: 1.6;
+  color: rgba(17, 17, 17, 0.9);
+}
+
+.heroMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.metaPill {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 12px;
+  border: 1px solid rgba(17, 17, 17, 0.14);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.34);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(17, 17, 17, 0.76);
+}
+
+.workspace {
+  display: grid;
+  gap: 20px;
+}
+
+.composer,
+.feed {
+  display: grid;
+  gap: 18px;
+  padding: 24px;
+}
+
+.composer {
+  align-content: start;
+}
+
+.composerHeader,
+.feedHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.panelEyebrow {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(17, 17, 17, 0.52);
+  margin-bottom: 6px;
+}
+
+.panelTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.12;
+  color: rgba(17, 17, 17, 0.92);
+}
+
+.feedSummary {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: flex-end;
+  color: rgba(17, 17, 17, 0.6);
+  font-size: 14px;
+}
+
+.tagPicker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.tagButton {
+  border: 1px solid rgba(17, 17, 17, 0.16);
+  border-radius: 999px;
+  padding: 10px 14px;
+  background: rgba(255, 255, 255, 0.34);
+  color: rgba(17, 17, 17, 0.74);
+  cursor: pointer;
+  transition:
+    transform 180ms ease,
+    background 180ms ease,
+    border-color 180ms ease,
+    color 180ms ease;
+}
+
+.tagButton:hover {
+  transform: translateY(-1px);
+  border-color: rgba(17, 17, 17, 0.26);
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.tagButtonActive {
+  border-color: rgba(17, 17, 17, 0.92);
+  background: rgba(17, 17, 17, 0.92);
+  color: rgba(255, 255, 255, 0.96);
+}
+
+.textarea,
+.searchInput {
+  width: 100%;
+  border: 1px solid rgba(17, 17, 17, 0.14);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.74);
+  color: rgba(17, 17, 17, 0.94);
+  outline: none;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.32);
+}
+
+.textarea {
+  min-height: 160px;
+  max-height: 260px;
+  resize: none;
+  padding: 18px;
+  font-size: 1.04rem;
+  line-height: 1.65;
+}
+
+.searchInput {
+  min-height: 48px;
+  padding: 12px 16px;
+  font-size: 0.98rem;
+}
+
+.textarea:focus,
+.searchInput:focus {
+  border-color: rgba(17, 17, 17, 0.42);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    0 0 0 3px rgba(17, 17, 17, 0.08);
+}
+
+.composerFooter {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.status {
+  color: rgba(17, 17, 17, 0.62);
+  font-size: 0.95rem;
+}
+
+.composerActions,
+.noteActions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.primaryButton,
+.secondaryButton,
+.cardButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  cursor: pointer;
+  transition:
+    transform 180ms ease,
+    background 180ms ease,
+    border-color 180ms ease,
+    color 180ms ease,
+    opacity 180ms ease;
+}
+
+.primaryButton,
+.secondaryButton {
+  padding: 11px 16px;
+  font-weight: 700;
+}
+
+.primaryButton {
+  border: 1px solid rgba(17, 17, 17, 0.92);
+  background: rgba(17, 17, 17, 0.92);
+  color: rgba(255, 255, 255, 0.96);
+}
+
+.primaryButton:hover:not(:disabled),
+.secondaryButton:hover,
+.cardButton:hover {
+  transform: translateY(-1px);
+}
+
+.primaryButton:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.secondaryButton {
+  border: 1px solid rgba(17, 17, 17, 0.16);
+  background: rgba(255, 255, 255, 0.34);
+  color: rgba(17, 17, 17, 0.76);
+}
+
+.cardButton {
+  border: 1px solid rgba(17, 17, 17, 0.12);
+  background: rgba(255, 255, 255, 0.3);
+  padding: 8px 12px;
+  font-size: 0.92rem;
+  color: rgba(17, 17, 17, 0.72);
+}
+
+.feed {
+  min-height: 560px;
+}
+
+.feedBody {
+  min-height: 0;
+}
+
+.noteList {
+  display: grid;
+  gap: 14px;
+  max-height: min(62vh, 760px);
+  overflow: auto;
+  padding-right: 4px;
+}
+
+.noteCard {
+  display: grid;
+  gap: 14px;
+  padding: 18px;
+  border: 1px solid rgba(17, 17, 17, 0.12);
+  border-radius: 18px;
+  background:
+    radial-gradient(circle at top right, rgba(255, 255, 255, 0.34), transparent 40%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.34), rgba(255, 255, 255, 0.18));
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.1);
+  transform-origin: top center;
+}
+
+.noteCardEntering {
+  animation: noteAppear 320ms ease-out both;
+}
+
+.noteCardRemoving {
+  animation: noteRemove 180ms ease-in both;
+}
+
+.noteCardHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.noteTag {
+  display: inline-flex;
+  align-items: center;
+  padding: 7px 11px;
+  border-radius: 999px;
+  background: rgba(92, 58, 30, 0.1);
+  border: 1px solid rgba(92, 58, 30, 0.18);
+  color: rgba(76, 48, 24, 0.9);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.noteContent {
+  white-space: pre-wrap;
+  line-height: 1.7;
+  color: rgba(17, 17, 17, 0.9);
+}
+
+.noteMeta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px 16px;
+  color: rgba(17, 17, 17, 0.58);
+  font-size: 0.9rem;
+}
+
+.emptyState {
+  display: grid;
+  gap: 10px;
+  padding: 24px;
+  border: 1px dashed rgba(17, 17, 17, 0.16);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.emptyTitle {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: rgba(17, 17, 17, 0.88);
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@keyframes noteAppear {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes noteRemove {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.985);
+  }
+}
+
+@media (min-width: 940px) {
+  .workspace {
+    grid-template-columns: minmax(320px, 380px) minmax(0, 1fr);
+    align-items: start;
+  }
+
+  .composer {
+    position: sticky;
+    top: 92px;
+  }
+}
+
+@media (max-width: 720px) {
+  .hero,
+  .composer,
+  .feed {
+    padding: 18px;
+  }
+
+  .composerFooter,
+  .feedHeader,
+  .noteCardHeader,
+  .noteMeta {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .feed {
+    min-height: auto;
+  }
+
+  .feedSummary {
+    justify-content: flex-start;
+  }
+
+  .noteList {
+    max-height: none;
+    overflow: visible;
+    padding-right: 0;
+  }
+
+  .composerActions,
+  .noteActions {
+    width: 100%;
+  }
+
+  .primaryButton,
+  .secondaryButton {
+    width: 100%;
+  }
+
+  .cardButton {
+    flex: 1 1 0;
+    min-height: 42px;
+  }
+
+  .searchInput,
+  .textarea {
+    font-size: 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tagButton,
+  .primaryButton,
+  .secondaryButton,
+  .cardButton {
+    transition: none;
+  }
+
+  .noteCardEntering,
+  .noteCardRemoving {
+    animation: none;
+  }
+}
