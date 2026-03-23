@@ -157,32 +157,17 @@ export default function NoteClient({ content, youtubeUrl }: Props) {
 
   return (
     <div className="note-reading-stack">
-      {youtubeUrl ? (
-        <section className="note-source-card">
-          <div className="note-source-copy">
-            <p className="section-kicker">Source URL</p>
-            <a
-              className="note-source-link"
-              href={youtubeUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {youtubeUrl}
-            </a>
-            <p className="text-muted">
-              Open the original message in a new tab, then read the notes below
-              in a cleaner article layout.
-            </p>
+      {embedSrc ? (
+        <section className="note-media-card">
+          <div className="note-video-frame">
+            <iframe
+              src={embedSrc}
+              title="YouTube video"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+            />
           </div>
-
-          <a
-            className="note-source-button"
-            href={youtubeUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Open source
-          </a>
         </section>
       ) : null}
 
@@ -210,27 +195,6 @@ export default function NoteClient({ content, youtubeUrl }: Props) {
           <EditorContent editor={editor} className="note-prose" />
         </article>
       </div>
-
-      {embedSrc ? (
-        <section className="note-media-card">
-          <div className="note-media-header">
-            <p className="section-kicker">Watch the message</p>
-            <p className="text-muted">
-              Revisit the teaching without interrupting the written notes above.
-            </p>
-          </div>
-
-          <div className="note-video-frame">
-            <iframe
-              src={embedSrc}
-              title="YouTube video"
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowFullScreen
-            />
-          </div>
-        </section>
-      ) : null}
     </div>
   );
 }

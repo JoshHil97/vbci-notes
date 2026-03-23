@@ -5,7 +5,6 @@ import {
   useEffect,
   useRef,
   useState,
-  useSyncExternalStore,
   type KeyboardEvent as ReactKeyboardEvent,
 } from "react";
 import styles from "./QuickNotesClient.module.css";
@@ -130,34 +129,6 @@ function readStoredNotes() {
 function writeStoredNotes(notes: QuickNote[]) {
   if (typeof window === "undefined") return;
   window.localStorage.setItem(STORAGE_KEY, JSON.stringify(notes));
-  window.dispatchEvent(new Event("quick-notes-storage"));
-}
-
-function subscribeToStoredNotes(onStoreChange: () => void) {
-  if (typeof window === "undefined") {
-    return () => undefined;
-  }
-
-  function handleStorage(event: Event) {
-    if (event instanceof StorageEvent && event.key && event.key !== STORAGE_KEY) {
-      return;
-    }
-
-    onStoreChange();
-  }
-
-  window.addEventListener("storage", handleStorage);
-  window.addEventListener("quick-notes-storage", handleStorage);
-
-  return () => {
-    window.removeEventListener("storage", handleStorage);
-    window.removeEventListener("quick-notes-storage", handleStorage);
-  };
-}
-
-function updateStoredNotes(update: (currentNotes: QuickNote[]) => QuickNote[]) {
-  const nextNotes = sortNotes(update(readStoredNotes()));
-  writeStoredNotes(nextNotes);
 }
 
 function formatRelativeDate(value: string, now: number) {
@@ -204,25 +175,16 @@ export default function QuickNotesClient() {
 
   const [draft, setDraft] = useState("");
   const [activeTag, setActiveTag] = useState<NoteTag>("idea");
+  const [notes, setNotes] = useState<QuickNote[]>([]);
   const [search, setSearch] = useState("");
   const [editingId, setEditingId] = useState<string | null>(null);
+  const [hydrated, setHydrated] = useState(false);
   const [statusMessage, setStatusMessage] = useState(
     "Stored locally in this browser."
   );
   const [animatedNoteId, setAnimatedNoteId] = useState<string | null>(null);
   const [removingIds, setRemovingIds] = useState<string[]>([]);
   const [now, setNow] = useState(() => Date.now());
-
-  const hydrated = useSyncExternalStore(
-    () => () => undefined,
-    () => true,
-    () => false
-  );
-  const notes = useSyncExternalStore(
-    subscribeToStoredNotes,
-    readStoredNotes,
-    () => [] as QuickNote[]
-  );
 
   const deferredSearch = useDeferredValue(search);
   const normalizedSearch = deferredSearch.trim().toLowerCase();
@@ -236,22 +198,46 @@ export default function QuickNotesClient() {
     textarea.setSelectionRange(end, end);
   }
 
-  useEffect(() => {
-    if (isMobileViewport()) return;
+  function syncStoredNotes(nextNotes: QuickNote[]) {
+    const sortedNotes = sortNotes(nextNotes);
+    setNotes(sortedNotes);
+    writeStoredNotes(sortedNotes);
+  }
 
-    window.requestAnimationFrame(() => {
-      focusComposer();
-    });
+  useEffect(() => {
+    const timeoutId = window.setTimeout(() => {
+      const loadedNotes = readStoredNotes();
+      setNotes(loadedNotes);
+      setHydrated(true);
+
+      if (!isMobileViewport()) {
+        window.requestAnimationFrame(() => {
+          focusComposer();
+        });
+      }
+    }, 0);
+
+    return () => window.clearTimeout(timeoutId);
   }, []);
 
   useEffect(() => {
     if (!hydrated) return;
 
+    function handleStorage(event: StorageEvent) {
+      if (event.key && event.key !== STORAGE_KEY) return;
+      setNotes(readStoredNotes());
+    }
+
+    window.addEventListener("storage", handleStorage);
+
     const intervalId = window.setInterval(() => {
       setNow(Date.now());
     }, 60_000);
 
-    return () => window.clearInterval(intervalId);
+    return () => {
+      window.removeEventListener("storage", handleStorage);
+      window.clearInterval(intervalId);
+    };
   }, [hydrated]);
 
   useEffect(() => {
@@ -325,8 +311,8 @@ export default function QuickNotesClient() {
     const nowIso = new Date().toISOString();
 
     if (editingId) {
-      updateStoredNotes((currentNotes) =>
-        currentNotes.map((note) =>
+      syncStoredNotes(
+        notes.map((note) =>
           note.id === editingId
             ? {
                 ...note,
@@ -343,7 +329,7 @@ export default function QuickNotesClient() {
     } else {
       const noteId = generateId();
 
-      updateStoredNotes((currentNotes) => [
+      syncStoredNotes([
         {
           id: noteId,
           content,
@@ -351,7 +337,7 @@ export default function QuickNotesClient() {
           createdAt: nowIso,
           updatedAt: nowIso,
         },
-        ...currentNotes,
+        ...notes,
       ]);
 
       setStatusMessage("Saved.");
@@ -394,9 +380,7 @@ export default function QuickNotesClient() {
     }
 
     window.setTimeout(() => {
-      updateStoredNotes((currentNotes) =>
-        currentNotes.filter((note) => note.id !== noteId)
-      );
+      syncStoredNotes(notes.filter((note) => note.id !== noteId));
 
       setRemovingIds((currentIds) => currentIds.filter((id) => id !== noteId));
       setNow(Date.now());
