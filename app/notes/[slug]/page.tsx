@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import NoteClient from "./NoteClient";
 import AdminControls from "../components/AdminControls";
 import { supabaseServer } from "../../../lib/supabase-server";
+import VerseCarousel from "@/app/components/VerseCarousel";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -100,6 +101,7 @@ export default async function NotePage({ params, searchParams }: PageProps) {
             ) : null}
 
             <NoteClient content={post.content_json} youtubeUrl={post.youtube_url} />
+            <VerseCarousel />
           </div>
         </section>
       </main>
