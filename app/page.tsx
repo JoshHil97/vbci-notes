@@ -4,25 +4,26 @@ import ScriptureCollage from "./components/ScriptureCollage";
 export default function HomePage() {
   return (
     <div className="paper-page" style={{ position: "relative" }}>
-      {/* Background only */}
       <ScriptureCollage density={220} darkness={0.16} />
 
-      {/* Page content stays the same */}
       <main className="container-narrow" style={{ padding: "30px 0 60px", position: "relative", zIndex: 2 }}>
-        <section className="crisp-card soft-fade-in" style={{ padding: 24, marginTop: 18 }}>
-          <p className="text-muted" style={{ marginBottom: 10 }}>
+        <section className="crisp-card soft-fade-in home-shell">
+          <div className="home-hero">
+            <p className="section-kicker">Scripture, reflection, and teaching</p>
+            <p className="text-muted" style={{ marginBottom: 10 }}>
             Scripture, reflection, and teaching centred on the fullness of salvation and the ongoing journey of faith.
-          </p>
+            </p>
 
-          <h1 className="heading-cursive" style={{ fontSize: 44, fontWeight: 800, marginBottom: 10 }}>
-            Oil for the Journey
-          </h1>
+            <h1 className="heading-cursive home-title">
+              Oil for the Journey
+            </h1>
 
-          <p style={{ marginBottom: 18, maxWidth: 820 }}>
-            A place to gather the Word, keep it close, and return to it again and again. These scriptures are oil for your journey, and a weapon in your hand.
-          </p>
+            <p className="home-intro">
+              A place to gather the Word, keep it close, and return to it again and again. These scriptures are oil for your journey, and a weapon in your hand.
+            </p>
+          </div>
 
-          <div className="crisp-card" style={{ padding: 18 }}>
+          <div className="crisp-card home-feature-card">
             <h2 className="heading-cursive" style={{ fontSize: 24, fontWeight: 800, marginBottom: 6 }}>
               Total Salvation
             </h2>
@@ -58,20 +59,20 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div style={{ display: "grid", gap: 14, marginTop: 18 }}>
-            <div className="crisp-card" style={{ padding: 18 }}>
+          <div className="home-panel-grid">
+            <div className="crisp-card home-panel-card">
               <h3 className="heading-cursive" style={{ fontSize: 22, fontWeight: 800, marginBottom: 6 }}>
                 Weekly Notes
               </h3>
               <p className="text-muted" style={{ marginBottom: 10 }}>
                 Clear, structured teaching you can revisit, study, and apply.
               </p>
-              <Link className="nav-link" href="/notes">
+              <Link className="nav-link home-link" href="/notes">
                 Go to notes
               </Link>
             </div>
 
-            <div className="crisp-card" style={{ padding: 18 }}>
+            <div className="crisp-card home-panel-card">
               <h3 className="heading-cursive" style={{ fontSize: 22, fontWeight: 800, marginBottom: 6 }}>
                 Theme Scripture
               </h3>
@@ -84,9 +85,9 @@ export default function HomePage() {
             </div>
           </div>
 
-          <p className="text-muted" style={{ marginTop: 16 }}>
+          <p className="text-muted home-footer-note">
             Want to read the teaching notes? Start here:{" "}
-            <Link className="nav-link" href="/notes">
+            <Link className="nav-link home-link" href="/notes">
               Weekly Notes
             </Link>
           </p>

@@ -7,7 +7,7 @@ export default function ResetPasswordPage() {
   const [password, setPassword] = useState("");
 
   async function handleReset() {
-    await supabaseBrowser.auth.updateUser({ password });
+    await supabaseBrowser().auth.updateUser({ password });
   }
 
   return (

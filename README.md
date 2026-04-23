@@ -42,8 +42,19 @@ The following variables are used by this project
 • NEXT_PUBLIC_SUPABASE_URL  
 • NEXT_PUBLIC_SUPABASE_ANON_KEY  
 • SUPABASE_SERVICE_ROLE_KEY  
+• RESEND_API_KEY  
+• EMAIL_FROM  
+• EMAIL_REPLY_TO (optional)  
+• NEXT_PUBLIC_SITE_URL (recommended for email links)  
 
 These should be set locally in `.env.local` and in Vercel project settings for production.
+
+Recommended production email setup
+
+```env
+EMAIL_FROM=Oil for the Journey <noreply@oilforyouu.com>
+NEXT_PUBLIC_SITE_URL=https://www.oilforyouu.com
+```
 
 Running Locally 🚀
 Install dependencies

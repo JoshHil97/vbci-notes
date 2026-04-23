@@ -9,7 +9,6 @@ import Link from "@tiptap/extension-link";
 import Underline from "@tiptap/extension-underline";
 import Placeholder from "@tiptap/extension-placeholder";
 import type { JSONContent } from "@tiptap/core";
-import { supabaseBrowser } from "@/lib/supabase-client";
 import TextColorMark from "./TextColorMark";
 
 type PostDraft = {
@@ -67,7 +66,6 @@ function ToolbarButton({
 
 export default function AdminClient({ initialPost }: Props) {
   const router = useRouter();
-  const supabase = supabaseBrowser();
 
   const isEditing = Boolean(initialPost?.id);
 
@@ -164,6 +162,7 @@ export default function AdminClient({ initialPost }: Props) {
     setLoading(true);
 
     const payload = {
+      id: initialPost?.id,
       title: cleanTitle,
       slug,
       speaker: speaker.trim() || null,
@@ -174,23 +173,58 @@ export default function AdminClient({ initialPost }: Props) {
       published,
     };
 
-    const { error } = isEditing
-      ? await supabase.from("posts").update(payload).eq("id", initialPost?.id)
-      : await supabase.from("posts").insert(payload);
+    try {
+      const response = await fetch("/api/posts", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
 
-    setLoading(false);
+      const result = (await response.json()) as {
+        ok?: boolean;
+        slug?: string;
+        error?: string;
+        email?: {
+          status?: "sent" | "skipped" | "failed";
+          message?: string;
+          deliveries?: number;
+        };
+      };
 
-    if (error) {
-      alert(error.message);
-      return;
+      setLoading(false);
+
+      if (!response.ok || !result.ok || !result.slug) {
+        alert(result.error ?? "Unable to save this note right now.");
+        return;
+      }
+
+      setStatusMessage(
+        published
+          ? result.email?.message ?? "Published successfully."
+          : "Draft saved."
+      );
+
+      if (published) {
+        const params = new URLSearchParams({
+          status: isEditing ? "updated" : "published",
+          email: result.email?.status ?? "skipped",
+        });
+
+        if (typeof result.email?.deliveries === "number") {
+          params.set("deliveries", String(result.email.deliveries));
+        }
+
+        router.push(`/notes/${result.slug}?${params.toString()}`);
+        return;
+      }
+
+      router.push("/admin?status=draft-saved");
+    } catch {
+      setLoading(false);
+      alert("Unable to save this note right now.");
     }
-
-    setStatusMessage(published ? "Published successfully." : "Draft saved.");
-    router.push(
-      published
-        ? `/notes/${slug}?status=${isEditing ? "updated" : "published"}`
-        : "/admin?status=draft-saved"
-    );
   }
 
   return (
@@ -210,42 +244,61 @@ export default function AdminClient({ initialPost }: Props) {
         </p>
       )}
 
-      <label>Title</label>
-      <input
-        placeholder="Title"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-      />
+      <div className="admin-form-grid">
+        <label className="admin-field">
+          <span className="notes-field-label">Title</span>
+          <input
+            className="admin-input"
+            placeholder="Title"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+          />
+        </label>
 
-      <label>Speaker</label>
-      <input
-        placeholder="Speaker"
-        value={speaker}
-        onChange={(e) => setSpeaker(e.target.value)}
-      />
+        <label className="admin-field">
+          <span className="notes-field-label">Speaker</span>
+          <input
+            className="admin-input"
+            placeholder="Speaker"
+            value={speaker}
+            onChange={(e) => setSpeaker(e.target.value)}
+          />
+        </label>
 
-      <label>Preached date</label>
-      <input
-        type="date"
-        value={date}
-        onChange={(e) => setDate(e.target.value)}
-      />
+        <label className="admin-field">
+          <span className="notes-field-label">Preached date</span>
+          <input
+            className="admin-input"
+            type="date"
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
+          />
+        </label>
 
-      <label>Summary</label>
-      <textarea
-        placeholder="Summary"
-        value={summary}
-        onChange={(e) => setSummary(e.target.value)}
-      />
+        <label className="admin-field admin-field-wide">
+          <span className="notes-field-label">Summary</span>
+          <textarea
+            className="admin-textarea"
+            placeholder="Summary"
+            value={summary}
+            onChange={(e) => setSummary(e.target.value)}
+          />
+        </label>
 
-      <label>YouTube URL</label>
-      <input
-        placeholder="YouTube URL (optional)"
-        value={youtubeUrl}
-        onChange={(e) => setYoutubeUrl(e.target.value)}
-      />
+        <label className="admin-field admin-field-wide">
+          <span className="notes-field-label">YouTube URL</span>
+          <input
+            className="admin-input"
+            placeholder="YouTube URL (optional)"
+            value={youtubeUrl}
+            onChange={(e) => setYoutubeUrl(e.target.value)}
+          />
+        </label>
+      </div>
 
-      <label>Note content</label>
+      <label className="admin-field">
+        <span className="notes-field-label">Note content</span>
+      </label>
       <div style={{ marginTop: 16, marginBottom: 16 }}>
         <div className="editor-shell">
           <div className="editor-toolbar">
@@ -426,8 +479,9 @@ export default function AdminClient({ initialPost }: Props) {
         </p>
       ) : null}
 
-      <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+      <div className="admin-form-actions">
         <button
+          className="admin-action-button admin-action-button-secondary"
           disabled={loading || !title.trim()}
           onClick={() => handleSubmit(false)}
         >
@@ -435,6 +489,7 @@ export default function AdminClient({ initialPost }: Props) {
         </button>
 
         <button
+          className="admin-action-button"
           disabled={loading || !title.trim()}
           onClick={() => handleSubmit(true)}
         >

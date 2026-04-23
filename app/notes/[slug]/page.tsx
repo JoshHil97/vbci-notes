@@ -1,17 +1,37 @@
 import { notFound } from "next/navigation";
 import NoteClient from "./NoteClient";
-import AdminControls from "../components/AdminControls";
+import AdminControls from "@/app/components/AdminControls";
 import { supabaseServer } from "../../../lib/supabase-server";
 import { getYouTubeEmbedUrl } from "@/lib/youtube";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
-  searchParams: Promise<{ status?: string }>;
+  searchParams: Promise<{ status?: string; email?: string; deliveries?: string }>;
 };
 
 function getStatusMessage(status?: string) {
   if (status === "published") return "Note published successfully.";
   if (status === "updated") return "Changes published successfully.";
+  return null;
+}
+
+function getEmailMessage(email?: string, deliveries?: string) {
+  if (email === "sent") {
+    if (deliveries) {
+      return `Email sent to ${deliveries} subscriber${deliveries === "1" ? "" : "s"}.`;
+    }
+
+    return "Email sent to subscribers.";
+  }
+
+  if (email === "failed") {
+    return "The note was published, but the email send failed. Use the admin email button to try again.";
+  }
+
+  if (email === "skipped") {
+    return "The note was saved, but no subscriber email was sent.";
+  }
+
   return null;
 }
 
@@ -30,7 +50,7 @@ function formatDisplayDate(value: string | null) {
 
 export default async function NotePage({ params, searchParams }: PageProps) {
   const { slug } = await params;
-  const { status } = await searchParams;
+  const { status, email, deliveries } = await searchParams;
 
   const supabase = await supabaseServer();
 
@@ -55,6 +75,7 @@ export default async function NotePage({ params, searchParams }: PageProps) {
   }
 
   const statusMessage = getStatusMessage(status);
+  const emailMessage = getEmailMessage(email, deliveries);
   const preachedDate = formatDisplayDate(post.preached_at);
   const embedUrl = post.youtube_url
     ? getYouTubeEmbedUrl(post.youtube_url)
@@ -66,6 +87,10 @@ export default async function NotePage({ params, searchParams }: PageProps) {
         <section className="crisp-card soft-fade-in notes-shell">
           {statusMessage ? (
             <div className="status-banner soft-fade-in">{statusMessage}</div>
+          ) : null}
+
+          {emailMessage ? (
+            <div className="status-banner soft-fade-in">{emailMessage}</div>
           ) : null}
 
           <div className="note-detail-container">

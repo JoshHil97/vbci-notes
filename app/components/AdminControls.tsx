@@ -1,8 +1,9 @@
 import Link from "next/link";
+import SendUpdateEmailButton from "./SendUpdateEmailButton";
 
 export default function AdminControls({ slug }: { slug?: string }) {
   return (
-    <div style={{ display: "flex", gap: 10, flexWrap: "wrap", alignItems: "center" }}>
+    <div className="admin-controls">
       <Link className="nav-link" href="/admin">
         Admin
       </Link>
@@ -12,9 +13,13 @@ export default function AdminControls({ slug }: { slug?: string }) {
       </Link>
 
       {slug ? (
-        <Link className="nav-link" href={`/admin/edit/${slug}`}>
-          Edit
-        </Link>
+        <>
+          <Link className="nav-link" href={`/admin/edit/${slug}`}>
+            Edit
+          </Link>
+
+          <SendUpdateEmailButton slug={slug} />
+        </>
       ) : null}
     </div>
   );
