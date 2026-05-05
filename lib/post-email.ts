@@ -117,6 +117,10 @@ function getProviderConfig(siteUrlFallback: string) {
   };
 }
 
+function wait(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 export async function notifySubscribersOfPublishedPost(
   post: PublishedPostEmailPayload,
   siteUrlFallback: string
@@ -169,7 +173,11 @@ export async function notifySubscribersOfPublishedPost(
 
   let deliveries = 0;
 
-  for (const email of emails) {
+  for (const [index, email] of emails.entries()) {
+    if (index > 0) {
+      await wait(250);
+    }
+
     const response = await fetch("https://api.resend.com/emails", {
       method: "POST",
       headers: {
