@@ -11,8 +11,9 @@ function escapeRegExp(value: string) {
 
 function getReferencePattern(ref: string) {
   return ref
-    .split(/\s+to\s+/i)
+    .split(/\s*(?:to|-|–|—)\s*/i)
     .map((part) => escapeRegExp(part))
+    .map((part) => part.replace(/^Matthew/i, "(?:Matthew|Mathew)"))
     .join("\\s*(?:to|-|–|—)\\s*")
     .replace(/\s+/g, "\\s+");
 }
@@ -38,6 +39,8 @@ const ScriptureReferenceExtension = Extension.create({
             state.doc.descendants((node, position) => {
               if (!node.isText || !node.text) return;
 
+              const occupiedRanges: Array<{ from: number; to: number }> = [];
+
               for (const scripture of scriptureMatchers) {
                 scripture.pattern.lastIndex = 0;
 
@@ -49,6 +52,11 @@ const ScriptureReferenceExtension = Extension.create({
 
                   const start = position + match.index + prefixLength;
                   const end = start + reference.length;
+                  const overlaps = occupiedRanges.some(
+                    (range) => start < range.to && end > range.from
+                  );
+
+                  if (overlaps) continue;
 
                   decorations.push(
                     Decoration.inline(start, end, {
@@ -59,6 +67,8 @@ const ScriptureReferenceExtension = Extension.create({
                       "aria-label": `${scripture.ref}: ${scripture.text}`,
                     })
                   );
+
+                  occupiedRanges.push({ from: start, to: end });
                 }
               }
             });
