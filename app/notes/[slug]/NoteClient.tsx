@@ -7,6 +7,7 @@ import StarterKit from "@tiptap/starter-kit";
 import type { JSONContent } from "@tiptap/core";
 import { useEffect } from "react";
 import TextColorMark from "@/app/admin/TextColorMark";
+import ScriptureReferenceExtension from "./ScriptureReferenceExtension";
 
 type Props = {
   content: JSONContent | null;
@@ -102,6 +103,7 @@ export default function NoteClient({ content }: Props) {
         },
       }),
       TextColorMark,
+      ScriptureReferenceExtension,
     ],
     content: content ?? "",
     editable: false,
