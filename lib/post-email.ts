@@ -121,6 +121,43 @@ function wait(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
+async function sendPostEmail(
+  apiKey: string,
+  payload: Record<string, unknown>,
+  email: string
+) {
+  const maxAttempts = 3;
+
+  for (let attempt = 1; attempt <= maxAttempts; attempt += 1) {
+    const response = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        ...payload,
+        to: [email],
+      }),
+    });
+
+    if (response.status !== 429 || attempt === maxAttempts) {
+      return response;
+    }
+
+    const retryAfter = response.headers.get("retry-after");
+    const retryAfterSeconds = retryAfter ? Number(retryAfter) : null;
+    const delayMs =
+      retryAfterSeconds && Number.isFinite(retryAfterSeconds)
+        ? retryAfterSeconds * 1000
+        : attempt * 1500;
+
+    await wait(delayMs);
+  }
+
+  throw new Error("Email send retry loop exited unexpectedly.");
+}
+
 export async function notifySubscribersOfPublishedPost(
   post: PublishedPostEmailPayload,
   siteUrlFallback: string
@@ -175,20 +212,10 @@ export async function notifySubscribersOfPublishedPost(
 
   for (const [index, email] of emails.entries()) {
     if (index > 0) {
-      await wait(250);
+      await wait(350);
     }
 
-    const response = await fetch("https://api.resend.com/emails", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${apiKey}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        ...basePayload,
-        to: [email],
-      }),
-    });
+    const response = await sendPostEmail(apiKey, basePayload, email);
 
     if (!response.ok) {
       let providerMessage = `The email provider rejected the request (HTTP ${response.status}) for ${email}.`;
