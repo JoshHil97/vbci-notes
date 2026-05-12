@@ -45,6 +45,14 @@ export const SCRIPTURE_POPUPS: ScripturePopup[] = [
     text: `Therefore if any man be in Christ, he is a new creature: old things are passed away; behold, all things are become new.`,
   },
   {
+    ref: "2 Corinthians 4:4",
+    text: `In whom the god of this world hath blinded the minds of them which believe not, lest the light of the glorious gospel of Christ, who is the image of God, should shine unto them.`,
+  },
+  {
+    ref: "2 Timothy 1:12",
+    text: `For the which cause I also suffer these things: nevertheless I am not ashamed: for I know whom I have believed, and am persuaded that he is able to keep that which I have committed unto him against that day.`,
+  },
+  {
     ref: "2 Timothy 4:7",
     text: `I have fought a good fight, I have finished my course, I have kept the faith:`,
   },
@@ -145,6 +153,42 @@ export const SCRIPTURE_POPUPS: ScripturePopup[] = [
     text: `Then Peter, filled with the Holy Ghost, said unto them, Ye rulers of the people, and elders of Israel, If we this day be examined of the good deed done to the impotent man, by what means he is made whole;`,
   },
   {
+    ref: "Acts 6:1-5",
+    text: `And in those days, when the number of the disciples was multiplied, there arose a murmuring of the Grecians against the Hebrews, because their widows were neglected in the daily ministration. Then the twelve called the multitude of the disciples unto them, and said, It is not reason that we should leave the word of God, and serve tables. Wherefore, brethren, look ye out among you seven men of honest report, full of the Holy Ghost and wisdom, whom we may appoint over this business. But we will give ourselves continually to prayer, and to the ministry of the word. And the saying pleased the whole multitude: and they chose Stephen, a man full of faith and of the Holy Ghost, and Philip, and Prochorus, and Nicanor, and Timon, and Parmenas, and Nicolas a proselyte of Antioch:`,
+  },
+  {
+    ref: "Acts 6:6-9",
+    text: `Whom they set before the apostles: and when they had prayed, they laid their hands on them. And the word of God increased; and the number of the disciples multiplied in Jerusalem greatly; and a great company of the priests were obedient to the faith. And Stephen, full of faith and power, did great wonders and miracles among the people. Then there arose certain of the synagogue, which is called the synagogue of the Libertines, and Cyrenians, and Alexandrians, and of them of Cilicia and of Asia, disputing with Stephen.`,
+  },
+  {
+    ref: "Acts 7:2-50",
+    text: `And he said, Men, brethren, and fathers, hearken; The God of glory appeared unto our father Abraham, when he was in Mesopotamia, before he dwelt in Charran, And said unto him, Get thee out of thy country, and from thy kindred, and come into the land which I shall shew thee. Then came he out of the land of the Chaldaeans, and dwelt in Charran: and from thence, when his father was dead, he removed him into this land, wherein ye now dwell. And he gave him none inheritance in it, no, not so much as to set his foot on: yet he promised that he would give it to him for a possession, and to his seed after him, when as yet he had no child. And God spake on this wise, That his seed should sojourn in a strange land; and that they should bring them into bondage, and entreat them evil four hundred years. And the nation to whom they shall be in bondage will I judge, said God: and after that shall they come forth, and serve me in this place. And he gave him the covenant of circumcision: and so Abraham begat Isaac, and circumcised him the eighth day; and Isaac begat Jacob; and Jacob begat the twelve patriarchs. And the patriarchs, moved with envy, sold Joseph into Egypt: but God was with him, And delivered him out of all his afflictions, and gave him favour and wisdom in the sight of Pharaoh king of Egypt; and he made him governor over Egypt and all his house. Now there came a dearth over all the land of Egypt and Chanaan, and great affliction: and our fathers found no sustenance. But when Jacob heard that there was corn in Egypt, he sent out our fathers first. And at the second time Joseph was made known to his brethren; and Joseph's kindred was made known unto Pharaoh. Then sent Joseph, and called his father Jacob to him, and all his kindred, threescore and fifteen souls. So Jacob went down into Egypt, and died, he, and our fathers, And were carried over into Sychem, and laid in the sepulchre that Abraham bought for a sum of money of the sons of Emmor the father of Sychem. But when the time of the promise drew nigh, which God had sworn to Abraham, the people grew and multiplied in Egypt, Till another king arose, which knew not Joseph. The same dealt subtilly with our kindred, and evil entreated our fathers, so that they cast out their young children, to the end they might not live. In which time Moses was born, and was exceeding fair, and nourished up in his father's house three months: And when he was cast out, Pharaoh's daughter took him up, and nourished him for her own son. And Moses was learned in all the wisdom of the Egyptians, and was mighty in words and in deeds. And when he was full forty years old, it came into his heart to visit his brethren the children of Israel. And seeing one of them suffer wrong, he defended him, and avenged him that was oppressed, and smote the Egyptian: For he supposed his brethren would have understood how that God by his hand would deliver them: but they understood not. And the next day he shewed himself unto them as they strove, and would have set them at one again, saying, Sirs, ye are brethren; why do ye wrong one to another? But he that did his neighbour wrong thrust him away, saying, Who made thee a ruler and a judge over us? Wilt thou kill me, as thou diddest the Egyptian yesterday? Then fled Moses at this saying, and was a stranger in the land of Madian, where he begat two sons. And when forty years were expired, there appeared to him in the wilderness of mount Sina an angel of the Lord in a flame of fire in a bush. When Moses saw it, he wondered at the sight: and as he drew near to behold it, the voice of the Lord came unto him, Saying, I am the God of thy fathers, the God of Abraham, and the God of Isaac, and the God of Jacob. Then Moses trembled, and durst not behold. Then said the Lord to him, Put off thy shoes from thy feet: for the place where thou standest is holy ground. I have seen, I have seen the affliction of my people which is in Egypt, and I have heard their groaning, and am come down to deliver them. And now come, I will send thee into Egypt. This Moses whom they refused, saying, Who made thee a ruler and a judge? the same did God send to be a ruler and a deliverer by the hand of the angel which appeared to him in the bush. He brought them out, after that he had shewed wonders and signs in the land of Egypt, and in the Red sea, and in the wilderness forty years. This is that Moses, which said unto the children of Israel, A prophet shall the Lord your God raise up unto you of your brethren, like unto me; him shall ye hear. This is he, that was in the church in the wilderness with the angel which spake to him in the mount Sina, and with our fathers: who received the lively oracles to give unto us: To whom our fathers would not obey, but thrust him from them, and in their hearts turned back again into Egypt, Saying unto Aaron, Make us gods to go before us: for as for this Moses, which brought us out of the land of Egypt, we wot not what is become of him. And they made a calf in those days, and offered sacrifice unto the idol, and rejoiced in the works of their own hands. Then God turned, and gave them up to worship the host of heaven; as it is written in the book of the prophets, O ye house of Israel, have ye offered to me slain beasts and sacrifices by the space of forty years in the wilderness? Yea, ye took up the tabernacle of Moloch, and the star of your god Remphan, figures which ye made to worship them: and I will carry you away beyond Babylon. Our fathers had the tabernacle of witness in the wilderness, as he had appointed, speaking unto Moses, that he should make it according to the fashion that he had seen. Which also our fathers that came after brought in with Jesus into the possession of the Gentiles, whom God drave out before the face of our fathers, unto the days of David; Who found favour before God, and desired to find a tabernacle for the God of Jacob. But Solomon built him an house. Howbeit the most High dwelleth not in temples made with hands; as saith the prophet, Heaven is my throne, and earth is my footstool: what house will ye build me? saith the Lord: or what is the place of my rest? Hath not my hand made all these things?`,
+  },
+  {
+    ref: "Acts 7:51",
+    text: `Ye stiffnecked and uncircumcised in heart and ears, ye do always resist the Holy Ghost: as your fathers did, so do ye.`,
+  },
+  {
+    ref: "Acts 7:51-53",
+    text: `Ye stiffnecked and uncircumcised in heart and ears, ye do always resist the Holy Ghost: as your fathers did, so do ye. Which of the prophets have not your fathers persecuted? and they have slain them which shewed before of the coming of the Just One; of whom ye have been now the betrayers and murderers: Who have received the law by the disposition of angels, and have not kept it.`,
+  },
+  {
+    ref: "Acts 7:54-55",
+    text: `When they heard these things, they were cut to the heart, and they gnashed on him with their teeth. But he, being full of the Holy Ghost, looked up stedfastly into heaven, and saw the glory of God, and Jesus standing on the right hand of God,`,
+  },
+  {
+    ref: "Acts 7:56",
+    text: `And said, Behold, I see the heavens opened, and the Son of man standing on the right hand of God.`,
+  },
+  {
+    ref: "Acts 7:57-59",
+    text: `Then they cried out with a loud voice, and stopped their ears, and ran upon him with one accord, And cast him out of the city, and stoned him: and the witnesses laid down their clothes at a young man's feet, whose name was Saul. And they stoned Stephen, calling upon God, and saying, Lord Jesus, receive my spirit.`,
+  },
+  {
+    ref: "Acts 7:60",
+    text: `And he kneeled down, and cried with a loud voice, Lord, lay not this sin to their charge. And when he had said this, he fell asleep.`,
+  },
+  {
     ref: "Acts 9:4",
     text: `And he fell to the earth, and heard a voice saying unto him, Saul, Saul, why persecutest thou me?`,
   },
@@ -221,6 +265,10 @@ export const SCRIPTURE_POPUPS: ScripturePopup[] = [
     text: `Looking unto Jesus the author and finisher of our faith; who for the joy that was set before him endured the cross, despising the shame, and is set down at the right hand of the throne of God.`,
   },
   {
+    ref: "Hebrews 13:8",
+    text: `Jesus Christ the same yesterday, and to day, and for ever.`,
+  },
+  {
     ref: "Hebrews 4:12",
     text: `For the word of God is quick, and powerful, and sharper than any twoedged sword, piercing even to the dividing asunder of soul and spirit, and of the joints and marrow, and is a discerner of the thoughts and intents of the heart.`,
   },
@@ -259,6 +307,26 @@ export const SCRIPTURE_POPUPS: ScripturePopup[] = [
   {
     ref: "John 3:16",
     text: `For God so loved the world, that he gave his only begotten Son, that whosoever believeth in him should not perish, but have everlasting life.`,
+  },
+  {
+    ref: "Jude 1:1",
+    text: `Jude, the servant of Jesus Christ, and brother of James, to them that are sanctified by God the Father, and preserved in Jesus Christ, and called:`,
+  },
+  {
+    ref: "Jude 1:2",
+    text: `Mercy unto you, and peace, and love, be multiplied.`,
+  },
+  {
+    ref: "Jude 1:2-4",
+    text: `Mercy unto you, and peace, and love, be multiplied. Beloved, when I gave all diligence to write unto you of the common salvation, it was needful for me to write unto you, and exhort you that ye should earnestly contend for the faith which was once delivered unto the saints. For there are certain men crept in unawares, who were before of old ordained to this condemnation, ungodly men, turning the grace of our God into lasciviousness, and denying the only Lord God, and our Lord Jesus Christ.`,
+  },
+  {
+    ref: "Jude 1:3",
+    text: `Beloved, when I gave all diligence to write unto you of the common salvation, it was needful for me to write unto you, and exhort you that ye should earnestly contend for the faith which was once delivered unto the saints.`,
+  },
+  {
+    ref: "Jude 1:4",
+    text: `For there are certain men crept in unawares, who were before of old ordained to this condemnation, ungodly men, turning the grace of our God into lasciviousness, and denying the only Lord God, and our Lord Jesus Christ.`,
   },
   {
     ref: "Joshua 1:8",
@@ -307,6 +375,10 @@ export const SCRIPTURE_POPUPS: ScripturePopup[] = [
   {
     ref: "Matthew 16:17",
     text: `And Jesus answered and said unto him, Blessed art thou, Simon Barjona: for flesh and blood hath not revealed it unto thee, but my Father which is in heaven.`,
+  },
+  {
+    ref: "Matthew 24:13",
+    text: `But he that shall endure unto the end, the same shall be saved.`,
   },
   {
     ref: "Matthew 1:21",
@@ -363,6 +435,10 @@ export const SCRIPTURE_POPUPS: ScripturePopup[] = [
   {
     ref: "Psalm 119:105",
     text: `Thy word is a lamp unto my feet, and a light unto my path.`,
+  },
+  {
+    ref: "Psalm 119:130",
+    text: `The entrance of thy words giveth light; it giveth understanding unto the simple.`,
   },
   {
     ref: "Psalm 17:8",
